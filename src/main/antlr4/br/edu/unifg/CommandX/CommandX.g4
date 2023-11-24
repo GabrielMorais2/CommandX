@@ -1,10 +1,8 @@
 grammar CommandX;
 
-start : PROGRAM ID BRACES_OPEN sentenca* BRACES_CLOSE func* ;
+start : PROGRAM ID BRACES_OPEN statement* BRACES_CLOSE func* ;
 
-sentenca: declaration | assign_op | print | for_loop | while_loop | decision | read | func_i | array | increment;
-
-primary_variable : INT | DOUBLE | FLOAT |CHAR | BOOLEAN | VAR | STRING;
+statement: declaration | assign_op | print | for_loop | while_loop | decision | read | func | func_i |array | increment;
 
 relationalExpression: EQUALITY_OPERATOR | RELATIONAL_OPERATOR;
 
@@ -12,70 +10,75 @@ arithmeticExpression: ADDITIVE_OPERATOR | MULTIPLICATIVE_OPERATOR | MOD;
 
 booleanExpression: AND | OR | NOT;
 
-increment : ID PLUS_PLUS SEMICOL | ID MINUS_MINUS SEMICOL
-           | ID PLUS_PLUS | ID MINUS_MINUS;
+integer_literal_or_id: INTEGER_LITERAL | ID;
 
 string: STRING_LITERAL;
+
+read: READ PAR_OPEN PAR_CLOSE SEMICOL;
+
+type_return: primary_variable | VOID;
+parameter: type_return ID;
+parameter_list: parameter (COMMA parameter)*;
+
+func: type_return ID PAR_OPEN parameter_list? PAR_CLOSE BRACES_OPEN statement* RETURN ID SEMICOL BRACES_CLOSE;
+func_i: ID PAR_OPEN STRING_LITERAL PAR_CLOSE SEMICOL;
+
+increment : ID PLUS_PLUS SEMICOL | ID MINUS_MINUS SEMICOL
+           | ID PLUS_PLUS | ID MINUS_MINUS;
 
 assign_arithmetic : ID ASSIGN ID  arithmeticExpression ID
                     | ID ASSIGN ID  arithmeticExpression INTEGER_LITERAL
                     | ID ASSIGN ID  arithmeticExpression READ;
-
-compare:  ID relationalExpression ID (booleanExpression compare)*
-          | ID relationalExpression INTEGER_LITERAL (booleanExpression compare)*
-          | INTEGER_LITERAL relationalExpression INTEGER_LITERAL (booleanExpression compare)*
-          | INTEGER_LITERAL relationalExpression ID (booleanExpression compare)*;
-
-pointer: POINTER_INT | POINTER_DOUBLE | POINTER_FLOAT | POINTER_CHAR
-        | POINTER_BOOLEAN | POINTER_STRING | POINTER_VAR;
-
-declaration: primary_variable ID SEMICOL | pointer ID SEMICOL
-           | primary_variable assign_op;
 
 assign_op: ID ASSIGN INTEGER_LITERAL SEMICOL
            | ID ASSIGN ID SEMICOL
            | ID ASSIGN read SEMICOL
            | ID ASSIGN STRING_LITERAL SEMICOL;
 
-for_loop: FOR PAR_OPEN primary_variable assign_op compare SEMICOL
-            increment PAR_CLOSE BRACES_OPEN sentenca* BRACES_CLOSE
-          | FOR PAR_OPEN primary_variable assign_op compare SEMICOL assign_arithmetic
-            PAR_CLOSE BRACES_OPEN sentenca BRACES_CLOSE
-          | FOR PAR_OPEN assign_op compare SEMICOL assign_arithmetic
-            PAR_CLOSE BRACES_OPEN sentenca BRACES_CLOSE
-          | FOR PAR_OPEN primary_variable assign_op compare SEMICOL
-             increment PAR_CLOSE BRACES_OPEN sentenca* BRACES_CLOSE;
+conditional_expression:  ID relationalExpression ID (booleanExpression conditional_expression)*
+          | ID relationalExpression INTEGER_LITERAL (booleanExpression conditional_expression)*
+          | INTEGER_LITERAL relationalExpression INTEGER_LITERAL (booleanExpression conditional_expression)*
+          | INTEGER_LITERAL relationalExpression ID (booleanExpression conditional_expression)*;
 
-while_loop: WHILE PAR_OPEN compare PAR_CLOSE BRACES_OPEN sentenca* BRACES_CLOSE;
+pointer: POINTER_INT | POINTER_DOUBLE | POINTER_FLOAT | POINTER_CHAR
+        | POINTER_BOOLEAN | POINTER_STRING | POINTER_VAR;
 
-simple_decision: IF PAR_OPEN compare PAR_CLOSE BRACES_OPEN sentenca* BRACES_CLOSE;
+declaration: primary_variable ID SEMICOL | pointer ID SEMICOL
+           | primary_variable assign_op
+           | primary_variable assign_arithmetic SEMICOL;
 
-else_if: ELSE IF PAR_OPEN compare PAR_CLOSE BRACES_OPEN sentenca* BRACES_CLOSE;
 
-composite_decision: IF PAR_OPEN compare PAR_CLOSE BRACES_OPEN sentenca* BRACES_CLOSE
-                    ELSE BRACES_OPEN sentenca* BRACES_CLOSE
-                    | IF PAR_OPEN compare PAR_CLOSE BRACES_OPEN sentenca* BRACES_CLOSE
-                      else_if* ELSE BRACES_OPEN sentenca* BRACES_CLOSE
-                    | IF PAR_OPEN compare PAR_CLOSE BRACES_OPEN sentenca* BRACES_CLOSE
-                        else_if* ;
+for_loop: FOR PAR_OPEN primary_variable assign_op conditional_expression SEMICOL
+            increment PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE
+          | FOR PAR_OPEN primary_variable assign_op conditional_expression SEMICOL assign_arithmetic
+            PAR_CLOSE BRACES_OPEN statement BRACES_CLOSE
+          | FOR PAR_OPEN assign_op conditional_expression SEMICOL assign_arithmetic
+            PAR_CLOSE BRACES_OPEN statement BRACES_CLOSE
+          | FOR PAR_OPEN primary_variable assign_op conditional_expression SEMICOL
+             increment PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE;
 
-decision: simple_decision | composite_decision;
+while_loop: WHILE PAR_OPEN conditional_expression PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE;
 
-number_or_id: INTEGER_LITERAL | ID;
+if_statement: IF PAR_OPEN conditional_expression PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE;
 
-print: PRINT PAR_OPEN number_or_id PAR_CLOSE SEMICOL
+else_if_statement: ELSE IF PAR_OPEN conditional_expression PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE;
+
+if_else_structure: IF PAR_OPEN conditional_expression PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE
+                    ELSE BRACES_OPEN statement* BRACES_CLOSE
+                    | IF PAR_OPEN conditional_expression PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE
+                      else_if_statement* ELSE BRACES_OPEN statement* BRACES_CLOSE
+                    | IF PAR_OPEN conditional_expression PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE
+                        else_if_statement* ;
+
+decision: if_statement | if_else_structure;
+
+print: PRINT PAR_OPEN integer_literal_or_id PAR_CLOSE SEMICOL
        | PRINT PAR_OPEN string PAR_CLOSE SEMICOL;
-
-read: READ PAR_OPEN PAR_CLOSE SEMICOL;
-
-type_return: primary_variable | VOID;
-parameter: type_return ID;
-
-func: type_return ID PAR_OPEN parameter* PAR_CLOSE BRACES_OPEN sentenca* PAR_CLOSE;
-func_i: ID PAR_OPEN STRING_LITERAL PAR_CLOSE SEMICOL;
 
 array: primary_variable ID BRACKET_OPEN INTEGER_LITERAL BRACKET_CLOSE SEMICOL
        | primary_variable ID BRACKET_OPEN INTEGER_LITERAL BRACKET_CLOSE BRACKET_OPEN INTEGER_LITERAL BRACKET_CLOSE SEMICOL;
+
+primary_variable : INT | DOUBLE | FLOAT |CHAR | BOOLEAN | VAR | STRING;
 
 INT : 'int';
 DOUBLE : 'double';
@@ -98,6 +101,7 @@ READ: 'read';
 FUNC: 'func';
 PROC: 'proc';
 VOID: 'void';
+RETURN: 'return';
 
 IF: 'if';
 ELSE: 'else';
