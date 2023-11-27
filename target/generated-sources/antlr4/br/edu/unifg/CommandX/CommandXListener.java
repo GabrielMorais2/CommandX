@@ -79,6 +79,16 @@ public interface CommandXListener extends ParseTreeListener {
 	 */
 	void exitArithmeticExpression(@NotNull CommandXParser.ArithmeticExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CommandXParser#literal_values}.
+	 * @param ctx the parse tree
+	 */
+	void enterLiteral_values(@NotNull CommandXParser.Literal_valuesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#literal_values}.
+	 * @param ctx the parse tree
+	 */
+	void exitLiteral_values(@NotNull CommandXParser.Literal_valuesContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CommandXParser#conditional_expression}.
 	 * @param ctx the parse tree
 	 */
@@ -119,6 +129,16 @@ public interface CommandXListener extends ParseTreeListener {
 	 */
 	void exitParameter(@NotNull CommandXParser.ParameterContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CommandXParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction(@NotNull CommandXParser.FunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction(@NotNull CommandXParser.FunctionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CommandXParser#statement}.
 	 * @param ctx the parse tree
 	 */
@@ -138,16 +158,6 @@ public interface CommandXListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFor_loop(@NotNull CommandXParser.For_loopContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#func_i}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunc_i(@NotNull CommandXParser.Func_iContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#func_i}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunc_i(@NotNull CommandXParser.Func_iContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CommandXParser#else_if_statement}.
 	 * @param ctx the parse tree
@@ -169,16 +179,6 @@ public interface CommandXListener extends ParseTreeListener {
 	 */
 	void exitPointer(@NotNull CommandXParser.PointerContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CommandXParser#read}.
-	 * @param ctx the parse tree
-	 */
-	void enterRead(@NotNull CommandXParser.ReadContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#read}.
-	 * @param ctx the parse tree
-	 */
-	void exitRead(@NotNull CommandXParser.ReadContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CommandXParser#decision}.
 	 * @param ctx the parse tree
 	 */
@@ -198,6 +198,16 @@ public interface CommandXListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStart(@NotNull CommandXParser.StartContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#assign_operator}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssign_operator(@NotNull CommandXParser.Assign_operatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#assign_operator}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssign_operator(@NotNull CommandXParser.Assign_operatorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CommandXParser#if_else_structure}.
 	 * @param ctx the parse tree
@@ -249,16 +259,6 @@ public interface CommandXListener extends ParseTreeListener {
 	 */
 	void exitPrint(@NotNull CommandXParser.PrintContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CommandXParser#func}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunc(@NotNull CommandXParser.FuncContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#func}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunc(@NotNull CommandXParser.FuncContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CommandXParser#if_statement}.
 	 * @param ctx the parse tree
 	 */
@@ -268,16 +268,6 @@ public interface CommandXListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIf_statement(@NotNull CommandXParser.If_statementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#assign_op}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssign_op(@NotNull CommandXParser.Assign_opContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#assign_op}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssign_op(@NotNull CommandXParser.Assign_opContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CommandXParser#parameter_list}.
 	 * @param ctx the parse tree

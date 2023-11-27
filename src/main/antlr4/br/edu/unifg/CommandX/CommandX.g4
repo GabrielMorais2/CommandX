@@ -1,8 +1,8 @@
 grammar CommandX;
 
-start : PROGRAM ID BRACES_OPEN statement* BRACES_CLOSE func* ;
+start : PROGRAM ID BRACES_OPEN statement* BRACES_CLOSE function* ;
 
-statement: declaration | assign_op | print | for_loop | while_loop | decision | read | func | func_i |array | increment;
+statement: declaration | assign_operator | print | for_loop | while_loop | decision | function | array | increment;
 
 relationalExpression: EQUALITY_OPERATOR | RELATIONAL_OPERATOR;
 
@@ -14,25 +14,21 @@ integer_literal_or_id: INTEGER_LITERAL | ID;
 
 string: STRING_LITERAL;
 
-read: READ PAR_OPEN PAR_CLOSE SEMICOL;
-
-type_return: primary_variable | VOID;
+type_return: primary_variable;
 parameter: type_return ID;
 parameter_list: parameter (COMMA parameter)*;
 
-func: type_return ID PAR_OPEN parameter_list? PAR_CLOSE BRACES_OPEN statement* RETURN ID SEMICOL BRACES_CLOSE;
-func_i: ID PAR_OPEN STRING_LITERAL PAR_CLOSE SEMICOL;
+function: type_return ID PAR_OPEN parameter_list* PAR_CLOSE BRACES_OPEN statement* RETURN (ID | literal_values) SEMICOL BRACES_CLOSE
+          | VOID ID PAR_OPEN parameter_list? PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE;
 
 increment : ID PLUS_PLUS SEMICOL | ID MINUS_MINUS SEMICOL
            | ID PLUS_PLUS | ID MINUS_MINUS;
 
 assign_arithmetic : ID ASSIGN ID  arithmeticExpression ID
-                    | ID ASSIGN ID  arithmeticExpression INTEGER_LITERAL
-                    | ID ASSIGN ID  arithmeticExpression READ;
+                    | ID ASSIGN ID  arithmeticExpression INTEGER_LITERAL;
 
-assign_op: ID ASSIGN INTEGER_LITERAL SEMICOL
+assign_operator: ID ASSIGN INTEGER_LITERAL SEMICOL
            | ID ASSIGN ID SEMICOL
-           | ID ASSIGN read SEMICOL
            | ID ASSIGN STRING_LITERAL SEMICOL;
 
 conditional_expression:  ID relationalExpression ID (booleanExpression conditional_expression)*
@@ -44,17 +40,17 @@ pointer: POINTER_INT | POINTER_DOUBLE | POINTER_FLOAT | POINTER_CHAR
         | POINTER_BOOLEAN | POINTER_STRING | POINTER_VAR;
 
 declaration: primary_variable ID SEMICOL | pointer ID SEMICOL
-           | primary_variable assign_op
+           | primary_variable assign_operator
            | primary_variable assign_arithmetic SEMICOL;
 
 
-for_loop: FOR PAR_OPEN primary_variable assign_op conditional_expression SEMICOL
+for_loop: FOR PAR_OPEN primary_variable assign_operator conditional_expression SEMICOL
             increment PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE
-          | FOR PAR_OPEN primary_variable assign_op conditional_expression SEMICOL assign_arithmetic
+          | FOR PAR_OPEN primary_variable assign_operator conditional_expression SEMICOL assign_arithmetic
             PAR_CLOSE BRACES_OPEN statement BRACES_CLOSE
-          | FOR PAR_OPEN assign_op conditional_expression SEMICOL assign_arithmetic
+          | FOR PAR_OPEN assign_operator conditional_expression SEMICOL assign_arithmetic
             PAR_CLOSE BRACES_OPEN statement BRACES_CLOSE
-          | FOR PAR_OPEN primary_variable assign_op conditional_expression SEMICOL
+          | FOR PAR_OPEN primary_variable assign_operator conditional_expression SEMICOL
              increment PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE;
 
 while_loop: WHILE PAR_OPEN conditional_expression PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE;
@@ -80,6 +76,8 @@ array: primary_variable ID BRACKET_OPEN INTEGER_LITERAL BRACKET_CLOSE SEMICOL
 
 primary_variable : INT | DOUBLE | FLOAT |CHAR | BOOLEAN | VAR | STRING;
 
+literal_values: STRING_LITERAL | INTEGER_LITERAL | BOOLEAN_LITERAL | CHAR_LITERAL | FLOAT_LITERAL | DOUBLE_LITERAL;
+
 INT : 'int';
 DOUBLE : 'double';
 FLOAT : 'float';
@@ -97,7 +95,6 @@ POINTER_VAR : 'var*';
 PROGRAM: 'program';
 VAR: 'var';
 PRINT: 'print';
-READ: 'read';
 FUNC: 'func';
 PROC: 'proc';
 VOID: 'void';
@@ -140,7 +137,8 @@ INTEGER_LITERAL: [0-9]+;
 BOOLEAN_LITERAL: 'true' | 'false';
 CHAR_LITERAL: '\'' ~["'\r\n] '\'';
 STRING_LITERAL: '"' ~["\r\n]* '"';
-FLOAT_LITERAL: [0-9]+ '.' [0-9]+;
+FLOAT_LITERAL: [0-9]+ '.' [0-9]+ 'f';
+DOUBLE_LITERAL: [0-9]+ '.' [0-9]+;
 
 ID: [a-zA-Z_][a-zA-Z_0-9]*;
 

@@ -53,12 +53,6 @@ public interface CommandXVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitString(CommandXParser.StringContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CommandXParser#read}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRead(CommandXParser.ReadContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link CommandXParser#type_return}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -77,17 +71,11 @@ public interface CommandXVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParameter_list(CommandXParser.Parameter_listContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CommandXParser#func}.
+	 * Visit a parse tree produced by {@link CommandXParser#function}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunc(CommandXParser.FuncContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CommandXParser#func_i}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunc_i(CommandXParser.Func_iContext ctx);
+	T visitFunction(CommandXParser.FunctionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CommandXParser#increment}.
 	 * @param ctx the parse tree
@@ -101,11 +89,11 @@ public interface CommandXVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssign_arithmetic(CommandXParser.Assign_arithmeticContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CommandXParser#assign_op}.
+	 * Visit a parse tree produced by {@link CommandXParser#assign_operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssign_op(CommandXParser.Assign_opContext ctx);
+	T visitAssign_operator(CommandXParser.Assign_operatorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CommandXParser#conditional_expression}.
 	 * @param ctx the parse tree
@@ -178,4 +166,10 @@ public interface CommandXVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPrimary_variable(CommandXParser.Primary_variableContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CommandXParser#literal_values}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteral_values(CommandXParser.Literal_valuesContext ctx);
 }

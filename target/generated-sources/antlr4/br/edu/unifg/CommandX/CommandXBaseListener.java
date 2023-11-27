@@ -101,6 +101,18 @@ public class CommandXBaseListener implements CommandXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLiteral_values(@NotNull CommandXParser.Literal_valuesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLiteral_values(@NotNull CommandXParser.Literal_valuesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterConditional_expression(@NotNull CommandXParser.Conditional_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -149,6 +161,18 @@ public class CommandXBaseListener implements CommandXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunction(@NotNull CommandXParser.FunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction(@NotNull CommandXParser.FunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterStatement(@NotNull CommandXParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -168,18 +192,6 @@ public class CommandXBaseListener implements CommandXListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFor_loop(@NotNull CommandXParser.For_loopContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFunc_i(@NotNull CommandXParser.Func_iContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunc_i(@NotNull CommandXParser.Func_iContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -209,18 +221,6 @@ public class CommandXBaseListener implements CommandXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRead(@NotNull CommandXParser.ReadContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitRead(@NotNull CommandXParser.ReadContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterDecision(@NotNull CommandXParser.DecisionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -240,6 +240,18 @@ public class CommandXBaseListener implements CommandXListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStart(@NotNull CommandXParser.StartContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssign_operator(@NotNull CommandXParser.Assign_operatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssign_operator(@NotNull CommandXParser.Assign_operatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -305,18 +317,6 @@ public class CommandXBaseListener implements CommandXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunc(@NotNull CommandXParser.FuncContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunc(@NotNull CommandXParser.FuncContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterIf_statement(@NotNull CommandXParser.If_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -324,18 +324,6 @@ public class CommandXBaseListener implements CommandXListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIf_statement(@NotNull CommandXParser.If_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAssign_op(@NotNull CommandXParser.Assign_opContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssign_op(@NotNull CommandXParser.Assign_opContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
