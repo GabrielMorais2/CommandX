@@ -1,5 +1,9 @@
 program teste {
-	
+
+	/*
+	    ARQUIVO DE TESTE DE DA LINGUAGEM COMMANDX
+	*/
+
 	//declaração de variaveis
 
     int i;
