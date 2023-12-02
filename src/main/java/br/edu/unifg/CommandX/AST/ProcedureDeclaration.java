@@ -1,31 +1,31 @@
-package AST;
+package br.edu.unifg.CommandX.AST;
 
 import java.util.List;
 import java.util.Map;
 
-public class FunctionDeclaration implements ASTNode {
-    public static final String RETURN_VARIABLE_NAME = "__return";
+public class ProcedureDeclaration implements ASTNode {
 
-    private String functionName;
+    private String procedureName;
     private List<ASTNode> body;
     private Map<String, Object> localSymbolTable;
 
-    public FunctionDeclaration(String functionName, List<ASTNode> body, Map<String, Object> localSymbolTable) {
-        this.functionName = functionName;
+    public ProcedureDeclaration(String procedureName, List<ASTNode> body, Map<String, Object> localSymbolTable) {
+        this.procedureName = procedureName;
         this.body = body;
         this.localSymbolTable = localSymbolTable;
     }
 
     @Override
     public Object execute(Map<String, Object> symbolTable) {
-        symbolTable.put(functionName, this);
+        symbolTable.put(procedureName, this);
 
         for (ASTNode node : body) {
             node.execute(localSymbolTable);
         }
 
-        return localSymbolTable.getOrDefault(RETURN_VARIABLE_NAME, null);
+        return null;
     }
+
     public List<ASTNode> getBody() {
         return body;
     }
@@ -33,5 +33,4 @@ public class FunctionDeclaration implements ASTNode {
     public Map<String, Object> getLocalSymbolTable() {
         return localSymbolTable;
     }
-
 }

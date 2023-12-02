@@ -1,12 +1,12 @@
-package AST;
+package br.edu.unifg.CommandX.AST;
 
 import java.util.Map;
 
-public class LogicalOr implements ASTNode {
+public class LogicalAnd implements ASTNode {
     private ASTNode left;
     private ASTNode right;
 
-    public LogicalOr(ASTNode left, ASTNode right) {
+    public LogicalAnd(ASTNode left, ASTNode right) {
         this.left = left;
         this.right = right;
     }
@@ -17,9 +17,9 @@ public class LogicalOr implements ASTNode {
         Object rightValue = right.execute(symbolTable);
 
         if (leftValue instanceof Boolean && rightValue instanceof Boolean) {
-            return (boolean) leftValue || (boolean) rightValue;
+            return (boolean) leftValue && (boolean) rightValue;
         } else {
-            throw new RuntimeException("Operação lógica OR aplicada a tipos não booleanos");
+            throw new RuntimeException("Operação lógica AND aplicada a tipos não booleanos");
         }
     }
 }

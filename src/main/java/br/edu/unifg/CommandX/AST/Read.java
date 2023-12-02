@@ -1,4 +1,4 @@
-package AST;
+package br.edu.unifg.CommandX.AST;
 
 import java.util.Map;
 import java.util.Scanner;

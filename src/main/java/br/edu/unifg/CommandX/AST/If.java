@@ -1,4 +1,4 @@
-package AST;
+package br.edu.unifg.CommandX.AST;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,7 @@ public class If implements ASTNode {
     }
 
     @Override
-    public Object execute(Map<String, Object> symbolTable) {
+    public Object execute(Map<String,Object> symbolTable) {
         if((boolean)logicalExpression.execute(symbolTable))
         {
             for (ASTNode node : ifBody) {
