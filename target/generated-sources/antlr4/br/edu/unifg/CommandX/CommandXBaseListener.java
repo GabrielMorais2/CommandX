@@ -1,4 +1,4 @@
-// Generated from CommandX.g4 by ANTLR 4.4
+// Generated from br\edu\u005Cunifg\CommandX\CommandX.g4 by ANTLR 4.5.1
 package br.edu.unifg.CommandX;
  
 	import java.util.Map;
@@ -9,7 +9,6 @@ package br.edu.unifg.CommandX;
 
 
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -24,408 +23,408 @@ public class CommandXBaseListener implements CommandXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogicalNotExpression(@NotNull CommandXParser.LogicalNotExpressionContext ctx) { }
+	@Override public void enterStart(CommandXParser.StartContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogicalNotExpression(@NotNull CommandXParser.LogicalNotExpressionContext ctx) { }
+	@Override public void exitStart(CommandXParser.StartContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConditional(@NotNull CommandXParser.ConditionalContext ctx) { }
+	@Override public void enterSentence(CommandXParser.SentenceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConditional(@NotNull CommandXParser.ConditionalContext ctx) { }
+	@Override public void exitSentence(CommandXParser.SentenceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAdditiveExpression(@NotNull CommandXParser.AdditiveExpressionContext ctx) { }
+	@Override public void enterComment(CommandXParser.CommentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAdditiveExpression(@NotNull CommandXParser.AdditiveExpressionContext ctx) { }
+	@Override public void exitComment(CommandXParser.CommentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_call(@NotNull CommandXParser.Function_callContext ctx) { }
+	@Override public void enterPrint(CommandXParser.PrintContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction_call(@NotNull CommandXParser.Function_callContext ctx) { }
+	@Override public void exitPrint(CommandXParser.PrintContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWhile_loop(@NotNull CommandXParser.While_loopContext ctx) { }
+	@Override public void enterRead_statement(CommandXParser.Read_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWhile_loop(@NotNull CommandXParser.While_loopContext ctx) { }
+	@Override public void exitRead_statement(CommandXParser.Read_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRelationalExpression(@NotNull CommandXParser.RelationalExpressionContext ctx) { }
+	@Override public void enterConditional(CommandXParser.ConditionalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRelationalExpression(@NotNull CommandXParser.RelationalExpressionContext ctx) { }
+	@Override public void exitConditional(CommandXParser.ConditionalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar_assign(@NotNull CommandXParser.Var_assignContext ctx) { }
+	@Override public void enterWhile_loop(CommandXParser.While_loopContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVar_assign(@NotNull CommandXParser.Var_assignContext ctx) { }
+	@Override public void exitWhile_loop(CommandXParser.While_loopContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProcedure_declaration(@NotNull CommandXParser.Procedure_declarationContext ctx) { }
+	@Override public void enterFor_loop(CommandXParser.For_loopContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProcedure_declaration(@NotNull CommandXParser.Procedure_declarationContext ctx) { }
+	@Override public void exitFor_loop(CommandXParser.For_loopContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProcedure_call(@NotNull CommandXParser.Procedure_callContext ctx) { }
+	@Override public void enterFor_loop_increment(CommandXParser.For_loop_incrementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProcedure_call(@NotNull CommandXParser.Procedure_callContext ctx) { }
+	@Override public void exitFor_loop_increment(CommandXParser.For_loop_incrementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTypeDeclaration(@NotNull CommandXParser.TypeDeclarationContext ctx) { }
+	@Override public void enterLogicalExpression(CommandXParser.LogicalExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTypeDeclaration(@NotNull CommandXParser.TypeDeclarationContext ctx) { }
+	@Override public void exitLogicalExpression(CommandXParser.LogicalExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIncrementExpression(@NotNull CommandXParser.IncrementExpressionContext ctx) { }
+	@Override public void enterLogicalOrExpression(CommandXParser.LogicalOrExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIncrementExpression(@NotNull CommandXParser.IncrementExpressionContext ctx) { }
+	@Override public void exitLogicalOrExpression(CommandXParser.LogicalOrExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFor_loop_increment(@NotNull CommandXParser.For_loop_incrementContext ctx) { }
+	@Override public void enterLogicalAndExpression(CommandXParser.LogicalAndExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFor_loop_increment(@NotNull CommandXParser.For_loop_incrementContext ctx) { }
+	@Override public void exitLogicalAndExpression(CommandXParser.LogicalAndExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_declaration_with_return(@NotNull CommandXParser.Function_declaration_with_returnContext ctx) { }
+	@Override public void enterEqualityExpression(CommandXParser.EqualityExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction_declaration_with_return(@NotNull CommandXParser.Function_declaration_with_returnContext ctx) { }
+	@Override public void exitEqualityExpression(CommandXParser.EqualityExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArgumentList(@NotNull CommandXParser.ArgumentListContext ctx) { }
+	@Override public void enterRelationalExpression(CommandXParser.RelationalExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArgumentList(@NotNull CommandXParser.ArgumentListContext ctx) { }
+	@Override public void exitRelationalExpression(CommandXParser.RelationalExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRead_statement(@NotNull CommandXParser.Read_statementContext ctx) { }
+	@Override public void enterAdditiveExpression(CommandXParser.AdditiveExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRead_statement(@NotNull CommandXParser.Read_statementContext ctx) { }
+	@Override public void exitAdditiveExpression(CommandXParser.AdditiveExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParameter(@NotNull CommandXParser.ParameterContext ctx) { }
+	@Override public void enterMultiplicativeExpression(CommandXParser.MultiplicativeExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParameter(@NotNull CommandXParser.ParameterContext ctx) { }
+	@Override public void exitMultiplicativeExpression(CommandXParser.MultiplicativeExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogicalAndExpression(@NotNull CommandXParser.LogicalAndExpressionContext ctx) { }
+	@Override public void enterIncrementExpression(CommandXParser.IncrementExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogicalAndExpression(@NotNull CommandXParser.LogicalAndExpressionContext ctx) { }
+	@Override public void exitIncrementExpression(CommandXParser.IncrementExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFor_loop(@NotNull CommandXParser.For_loopContext ctx) { }
+	@Override public void enterUnaryExpression(CommandXParser.UnaryExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFor_loop(@NotNull CommandXParser.For_loopContext ctx) { }
+	@Override public void exitUnaryExpression(CommandXParser.UnaryExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnaryExpression(@NotNull CommandXParser.UnaryExpressionContext ctx) { }
+	@Override public void enterPrimaryExpression(CommandXParser.PrimaryExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUnaryExpression(@NotNull CommandXParser.UnaryExpressionContext ctx) { }
+	@Override public void exitPrimaryExpression(CommandXParser.PrimaryExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_declaration(@NotNull CommandXParser.Function_declarationContext ctx) { }
+	@Override public void enterLogicalNotExpression(CommandXParser.LogicalNotExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction_declaration(@NotNull CommandXParser.Function_declarationContext ctx) { }
+	@Override public void exitLogicalNotExpression(CommandXParser.LogicalNotExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSentence(@NotNull CommandXParser.SentenceContext ctx) { }
+	@Override public void enterVar_decl(CommandXParser.Var_declContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSentence(@NotNull CommandXParser.SentenceContext ctx) { }
+	@Override public void exitVar_decl(CommandXParser.Var_declContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrimaryExpression(@NotNull CommandXParser.PrimaryExpressionContext ctx) { }
+	@Override public void enterVar_assign(CommandXParser.Var_assignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrimaryExpression(@NotNull CommandXParser.PrimaryExpressionContext ctx) { }
+	@Override public void exitVar_assign(CommandXParser.Var_assignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStart(@NotNull CommandXParser.StartContext ctx) { }
+	@Override public void enterFunction_declaration(CommandXParser.Function_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStart(@NotNull CommandXParser.StartContext ctx) { }
+	@Override public void exitFunction_declaration(CommandXParser.Function_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogicalOrExpression(@NotNull CommandXParser.LogicalOrExpressionContext ctx) { }
+	@Override public void enterFunction_declaration_with_return(CommandXParser.Function_declaration_with_returnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogicalOrExpression(@NotNull CommandXParser.LogicalOrExpressionContext ctx) { }
+	@Override public void exitFunction_declaration_with_return(CommandXParser.Function_declaration_with_returnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMultiplicativeExpression(@NotNull CommandXParser.MultiplicativeExpressionContext ctx) { }
+	@Override public void enterReturnFunc(CommandXParser.ReturnFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMultiplicativeExpression(@NotNull CommandXParser.MultiplicativeExpressionContext ctx) { }
+	@Override public void exitReturnFunc(CommandXParser.ReturnFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogicalExpression(@NotNull CommandXParser.LogicalExpressionContext ctx) { }
+	@Override public void enterFunction_call(CommandXParser.Function_callContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogicalExpression(@NotNull CommandXParser.LogicalExpressionContext ctx) { }
+	@Override public void exitFunction_call(CommandXParser.Function_callContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrint(@NotNull CommandXParser.PrintContext ctx) { }
+	@Override public void enterProcedure_declaration(CommandXParser.Procedure_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrint(@NotNull CommandXParser.PrintContext ctx) { }
+	@Override public void exitProcedure_declaration(CommandXParser.Procedure_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEqualityExpression(@NotNull CommandXParser.EqualityExpressionContext ctx) { }
+	@Override public void enterProcedure_call(CommandXParser.Procedure_callContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEqualityExpression(@NotNull CommandXParser.EqualityExpressionContext ctx) { }
+	@Override public void exitProcedure_call(CommandXParser.Procedure_callContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReturnFunc(@NotNull CommandXParser.ReturnFuncContext ctx) { }
+	@Override public void enterArgumentList(CommandXParser.ArgumentListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReturnFunc(@NotNull CommandXParser.ReturnFuncContext ctx) { }
+	@Override public void exitArgumentList(CommandXParser.ArgumentListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParameterList(@NotNull CommandXParser.ParameterListContext ctx) { }
+	@Override public void enterParameterList(CommandXParser.ParameterListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParameterList(@NotNull CommandXParser.ParameterListContext ctx) { }
+	@Override public void exitParameterList(CommandXParser.ParameterListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterComment(@NotNull CommandXParser.CommentContext ctx) { }
+	@Override public void enterParameter(CommandXParser.ParameterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitComment(@NotNull CommandXParser.CommentContext ctx) { }
+	@Override public void exitParameter(CommandXParser.ParameterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar_decl(@NotNull CommandXParser.Var_declContext ctx) { }
+	@Override public void enterTypeDeclaration(CommandXParser.TypeDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVar_decl(@NotNull CommandXParser.Var_declContext ctx) { }
+	@Override public void exitTypeDeclaration(CommandXParser.TypeDeclarationContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEveryRule(@NotNull ParserRuleContext ctx) { }
+	@Override public void enterEveryRule(ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEveryRule(@NotNull ParserRuleContext ctx) { }
+	@Override public void exitEveryRule(ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void visitTerminal(@NotNull TerminalNode node) { }
+	@Override public void visitTerminal(TerminalNode node) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void visitErrorNode(@NotNull ErrorNode node) { }
+	@Override public void visitErrorNode(ErrorNode node) { }
 }

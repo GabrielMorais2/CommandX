@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class Parameter implements ASTNode {
 
-	private String type;
-    private String name;
+    private final String type;
+    private final String name;
 
     public Parameter(String type, String name) {
         this.type = type;

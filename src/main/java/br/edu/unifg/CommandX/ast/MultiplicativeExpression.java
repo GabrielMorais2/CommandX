@@ -3,13 +3,13 @@ package br.edu.unifg.CommandX.ast;
 import java.util.Map;
 
 public class MultiplicativeExpression implements ASTNode {
-    private ASTNode left;
-    private ASTNode right;
-    private String operator;
+    private final ASTNode left;
+    private final ASTNode right;
+    private final String operator;
 
     public MultiplicativeExpression(ASTNode left, ASTNode right, String operator) {
         super();
-    	this.left = left;
+        this.left = left;
         this.right = right;
         this.operator = operator;
     }

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ProcedureCall implements ASTNode {
-    private String procedureName;
-    private List<ASTNode> argumentList;
+    private final String procedureName;
+    private final List<ASTNode> argumentList;
 
     public ProcedureCall(String procedureName, List<ASTNode> argumentList) {
         this.procedureName = procedureName;
@@ -14,24 +14,24 @@ public class ProcedureCall implements ASTNode {
     }
 
     @SuppressWarnings("unused")
-	@Override
+    @Override
     public Object execute(Map<String, Object> symbolTable) {
         // Recupera o procedimento da tabela de símbolos
         ProcedureDeclaration procedureDeclaration = (ProcedureDeclaration) symbolTable.get(procedureName);
-        
-     // Verifica se o procedimento existe
+
+        // Verifica se o procedimento existe
         if (procedureDeclaration == null) {
             throw new RuntimeException("Procedimento '" + procedureName + "' não declarado.");
         }
-        
-     // Verifica se o número de argumentos coincide com o número de parâmetros
+
+        // Verifica se o número de argumentos coincide com o número de parâmetros
         List<ASTNode> parameters = procedureDeclaration.getBody();
         if (argumentList.size() != parameters.size()) {
             throw new RuntimeException("Número incorreto de argumentos para o procedimento '" + procedureName + "'.");
         }
-        
+
         if (procedureDeclaration != null) {
-        	// Cria um novo escopo local para a execução da função
+            // Cria um novo escopo local para a execução da função
             Map<String, Object> localSymbolTable = new HashMap<>(procedureDeclaration.getLocalSymbolTable());
 
             // Associa os argumentos aos parâmetros no escopo local

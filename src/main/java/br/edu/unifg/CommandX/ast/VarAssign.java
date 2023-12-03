@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class VarAssign implements ASTNode {
 
-	private String name;
-    private ASTNode value;
+    private final String name;
+    private final ASTNode value;
 
     public VarAssign(String name, ASTNode value) {
         this.name = name;
@@ -30,7 +30,4 @@ public class VarAssign implements ASTNode {
         return name;
     }
 
-    public ASTNode getValue() {
-        return value;
-    }
 }

@@ -118,6 +118,7 @@ logicalExpression returns [ASTNode node]:
 	  logicalOrExpression {$node = $logicalOrExpression.node;}
 	| logicalAndExpression {$node = $logicalAndExpression.node;}
 	| NOT logicalExpression {$node = new LogicalNot($logicalExpression.node);}
+	| function_call {$node = $function_call.node;}
 	;
 
 logicalOrExpression returns [ASTNode node]: 
@@ -177,13 +178,13 @@ logicalNotExpression returns [ASTNode node]:
 
 
 var_decl returns [ASTNode node]: typeDeclaration ID SEMICOL {$node = new VarDecl($ID.text, $typeDeclaration.text);}
-							   | typeDeclaration ID  ASSIGN logicalExpression SEMICOL {$node = new VarAssignDecl($ID.text, $typeDeclaration.text, $logicalExpression.node);} ;
+							   | typeDeclaration ID  ASSIGN logicalExpression SEMICOL {$node = new VarAssignDecl($ID.text, $typeDeclaration.text, $logicalExpression.node);}
+							   | typeDeclaration ID  ASSIGN function_call (SEMICOL)? {$node = new VarAssignDecl($ID.text, $typeDeclaration.text, $function_call.node);} ;
 
 var_assign returns [ASTNode node]: ID ASSIGN logicalExpression SEMICOL {$node = new VarAssign($ID.text, $logicalExpression.node);}
 			| ID ASSIGN logicalExpression {$node = new VarAssign($ID.text, $logicalExpression.node);};
 
 function_declaration returns [ASTNode node]:
-    // Função com parâmetros porém sem retorno
     FUNC ID PAR_OPEN parameterList PAR_CLOSE
     BRACES_OPEN 
     {
@@ -198,7 +199,6 @@ function_declaration returns [ASTNode node]:
         functionSymbolTable.put($ID.text, new FunctionDeclaration($ID.text, body, localSymbolTable, null));
     }
     |
-    // Função sem parâmetros e sem retorno
     FUNC ID PAR_OPEN PAR_CLOSE
     BRACES_OPEN 
     {
@@ -261,7 +261,6 @@ function_call returns [ASTNode node]:
         if (declaration instanceof FunctionDeclarationReturn) {
             $node = new FunctionCall($ID.text, null, true);
         } else if (declaration instanceof FunctionDeclaration) {
-            // Se não houver um retorno, cria uma instância de FunctionCall
             $node = new FunctionCall($ID.text, null, false);
         }
     }
@@ -273,7 +272,6 @@ function_call returns [ASTNode node]:
         if (declaration instanceof FunctionDeclarationReturn) {
             $node = new FunctionCall($ID.text, $argumentList.list, true);
         } else if (declaration instanceof FunctionDeclaration) {
-            // Se não houver um retorno, cria uma instância de FunctionCall
             $node = new FunctionCall($ID.text, $argumentList.list, false);
         }
     }
@@ -341,9 +339,6 @@ INCREMENT_OPERATOR: '++' | '--';
 AND: '&&';
 OR: '||';
 NOT: '!';
-
-PLUS_PLUS: '++';
-MINUS_MINUS: '--';
 
 RELATIONAL_OPERATOR: '>' | '<' | '>=' | '<=';
 EQUALITY_OPERATOR: '==' | '!=';

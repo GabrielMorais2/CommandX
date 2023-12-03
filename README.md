@@ -1,6 +1,8 @@
 # CommandX
 
-Este é um interpretador para a linguagem de programação CommandX. Esta linguagem segue um paradigma imperativo e fornece funcionalidades como declarações de variáveis, estruturas de controle de fluxo (if, else, for, while), funções, e muito mais.
+Este é um interpretador para a linguagem de programação CommandX. Esta linguagem segue um paradigma imperativo e fornece
+funcionalidades como declarações de variáveis, estruturas de controle de fluxo (if, else, for, while), funções, e muito
+mais.
 
 ## Exemplos de Código
 
@@ -35,4 +37,5 @@ program test {
 
 ## Contribuições
 
-Contribuições são bem-vindas! Se você encontrar bugs, melhorias ou novos recursos que gostaria de adicionar, sinta-se à vontade para abrir uma issue ou enviar um pull request.
+Contribuições são bem-vindas! Se você encontrar bugs, melhorias ou novos recursos que gostaria de adicionar, sinta-se à
+vontade para abrir uma issue ou enviar um pull request.

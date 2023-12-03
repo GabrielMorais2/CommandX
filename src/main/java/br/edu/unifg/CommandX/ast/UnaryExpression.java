@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class UnaryExpression implements ASTNode {
 
-	private String operator;
-    private ASTNode operand;
+    private final String operator;
+    private final ASTNode operand;
 
     public UnaryExpression(String operator, ASTNode operand) {
         this.operator = operator;

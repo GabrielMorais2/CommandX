@@ -3,12 +3,12 @@ package br.edu.unifg.CommandX.ast;
 import java.util.Map;
 
 public class LogicalNot implements ASTNode {
-	
-	private ASTNode operand;
+
+    private final ASTNode operand;
 
     public LogicalNot(ASTNode operand) {
         super();
-    	this.operand = operand;
+        this.operand = operand;
     }
 
     @Override

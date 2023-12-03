@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class ProcedureDeclaration implements ASTNode {
 
-	private String procedureName;
-    private List<ASTNode> body;
-    private Map<String, Object> localSymbolTable;
+    private final String procedureName;
+    private final List<ASTNode> body;
+    private final Map<String, Object> localSymbolTable;
 
     public ProcedureDeclaration(String procedureName, List<ASTNode> body, Map<String, Object> localSymbolTable) {
         this.procedureName = procedureName;
@@ -26,7 +26,7 @@ public class ProcedureDeclaration implements ASTNode {
 
         return null; // Procedimento não retorna valor
     }
-    
+
     public List<ASTNode> getBody() {
         return body;
     }

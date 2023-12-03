@@ -1,4 +1,4 @@
-// Generated from CommandX.g4 by ANTLR 4.4
+// Generated from br\edu\u005Cunifg\CommandX\CommandX.g4 by ANTLR 4.5.1
 package br.edu.unifg.CommandX;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class CommandXLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.4", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.5.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -31,16 +31,6 @@ public class CommandXLexer extends Lexer {
 		"DEFAULT_MODE"
 	};
 
-	public static final String[] tokenNames = {
-		"'\\u0000'", "'\\u0001'", "'\\u0002'", "'\\u0003'", "'\\u0004'", "'\\u0005'", 
-		"'\\u0006'", "'\\u0007'", "'\b'", "'\t'", "'\n'", "'\\u000B'", "'\f'", 
-		"'\r'", "'\\u000E'", "'\\u000F'", "'\\u0010'", "'\\u0011'", "'\\u0012'", 
-		"'\\u0013'", "'\\u0014'", "'\\u0015'", "'\\u0016'", "'\\u0017'", "'\\u0018'", 
-		"'\\u0019'", "'\\u001A'", "'\\u001B'", "'\\u001C'", "'\\u001D'", "'\\u001E'", 
-		"'\\u001F'", "' '", "'!'", "'\"'", "'#'", "'$'", "'%'", "'&'", "'''", 
-		"'('", "')'", "'*'", "'+'", "','", "'-'", "'.'", "'/'", "'0'", "'1'", 
-		"'2'", "'3'", "'4'", "'5'"
-	};
 	public static final String[] ruleNames = {
 		"INT", "FLOAT", "CHAR", "BOOLEAN", "STRING", "POINTER_INT", "POINTER_FLOAT", 
 		"POINTER_CHAR", "POINTER_BOOLEAN", "POINTER_STRING", "POINTER_VAR", "PROGRAM", 
@@ -53,6 +43,58 @@ public class CommandXLexer extends Lexer {
 		"FLOAT_LITERAL", "ID", "LINE_COMMENT", "BLOCK_COMMENT", "WS"
 	};
 
+	private static final String[] _LITERAL_NAMES = {
+		null, "'int'", "'float'", "'char'", "'boolean'", "'string'", "'int*'", 
+		"'float*'", "'char*'", "'boolean*'", "'string*'", "'var*'", "'program'", 
+		"'var'", "'read'", "'print'", "'func'", "'proc'", "'void'", "'return'", 
+		"'if'", "'else'", "'elif'", "'for'", "'while'", null, null, "'%'", null, 
+		"'&&'", "'||'", "'!'", "'++'", "'--'", null, null, "'='", "'('", "')'", 
+		"'{'", "'}'", "'['", "']'", "';'", "','"
+	};
+	private static final String[] _SYMBOLIC_NAMES = {
+		null, "INT", "FLOAT", "CHAR", "BOOLEAN", "STRING", "POINTER_INT", "POINTER_FLOAT", 
+		"POINTER_CHAR", "POINTER_BOOLEAN", "POINTER_STRING", "POINTER_VAR", "PROGRAM", 
+		"VAR", "READ", "PRINT", "FUNC", "PROC", "VOID", "RETURN", "IF", "ELSE", 
+		"ELIF", "FOR", "WHILE", "ADDITIVE_OPERATOR", "MULTIPLICATIVE_OPERATOR", 
+		"MOD", "INCREMENT_OPERATOR", "AND", "OR", "NOT", "PLUS_PLUS", "MINUS_MINUS", 
+		"RELATIONAL_OPERATOR", "EQUALITY_OPERATOR", "ASSIGN", "PAR_OPEN", "PAR_CLOSE", 
+		"BRACES_OPEN", "BRACES_CLOSE", "BRACKET_OPEN", "BRACKET_CLOSE", "SEMICOL", 
+		"COMMA", "INTEGER_LITERAL", "BOOLEAN_LITERAL", "CHAR_LITERAL", "STRING_LITERAL", 
+		"FLOAT_LITERAL", "ID", "LINE_COMMENT", "BLOCK_COMMENT", "WS"
+	};
+	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
+
+	/**
+	 * @deprecated Use {@link #VOCABULARY} instead.
+	 */
+	@Deprecated
+	public static final String[] tokenNames;
+	static {
+		tokenNames = new String[_SYMBOLIC_NAMES.length];
+		for (int i = 0; i < tokenNames.length; i++) {
+			tokenNames[i] = VOCABULARY.getLiteralName(i);
+			if (tokenNames[i] == null) {
+				tokenNames[i] = VOCABULARY.getSymbolicName(i);
+			}
+
+			if (tokenNames[i] == null) {
+				tokenNames[i] = "<INVALID>";
+			}
+		}
+	}
+
+	@Override
+	@Deprecated
+	public String[] getTokenNames() {
+		return tokenNames;
+	}
+
+	@Override
+
+	public Vocabulary getVocabulary() {
+		return VOCABULARY;
+	}
+
 
 	public CommandXLexer(CharStream input) {
 		super(input);
@@ -61,9 +103,6 @@ public class CommandXLexer extends Lexer {
 
 	@Override
 	public String getGrammarFileName() { return "CommandX.g4"; }
-
-	@Override
-	public String[] getTokenNames() { return tokenNames; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

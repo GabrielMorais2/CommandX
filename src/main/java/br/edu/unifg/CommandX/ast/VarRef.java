@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class VarRef implements ASTNode {
 
-	private String varName;
+    private final String varName;
 
     public VarRef(String varName) {
         this.varName = varName;
