@@ -66,6 +66,12 @@ public interface CommandXVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFor_loop(CommandXParser.For_loopContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link CommandXParser#for_loop_increment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFor_loop_increment(CommandXParser.For_loop_incrementContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link CommandXParser#logicalExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -108,6 +114,12 @@ public interface CommandXVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMultiplicativeExpression(CommandXParser.MultiplicativeExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link CommandXParser#incrementExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIncrementExpression(CommandXParser.IncrementExpressionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link CommandXParser#unaryExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -144,17 +156,29 @@ public interface CommandXVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction_declaration(CommandXParser.Function_declarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CommandXParser#procedure_declaration}.
+	 * Visit a parse tree produced by {@link CommandXParser#function_declaration_with_return}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProcedure_declaration(CommandXParser.Procedure_declarationContext ctx);
+	T visitFunction_declaration_with_return(CommandXParser.Function_declaration_with_returnContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CommandXParser#returnFunc}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnFunc(CommandXParser.ReturnFuncContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CommandXParser#function_call}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFunction_call(CommandXParser.Function_callContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CommandXParser#procedure_declaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProcedure_declaration(CommandXParser.Procedure_declarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CommandXParser#procedure_call}.
 	 * @param ctx the parse tree

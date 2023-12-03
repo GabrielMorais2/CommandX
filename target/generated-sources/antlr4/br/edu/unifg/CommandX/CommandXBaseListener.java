@@ -144,6 +144,42 @@ public class CommandXBaseListener implements CommandXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterIncrementExpression(@NotNull CommandXParser.IncrementExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIncrementExpression(@NotNull CommandXParser.IncrementExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFor_loop_increment(@NotNull CommandXParser.For_loop_incrementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFor_loop_increment(@NotNull CommandXParser.For_loop_incrementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction_declaration_with_return(@NotNull CommandXParser.Function_declaration_with_returnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction_declaration_with_return(@NotNull CommandXParser.Function_declaration_with_returnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterArgumentList(@NotNull CommandXParser.ArgumentListContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -319,6 +355,18 @@ public class CommandXBaseListener implements CommandXListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitEqualityExpression(@NotNull CommandXParser.EqualityExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterReturnFunc(@NotNull CommandXParser.ReturnFuncContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitReturnFunc(@NotNull CommandXParser.ReturnFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

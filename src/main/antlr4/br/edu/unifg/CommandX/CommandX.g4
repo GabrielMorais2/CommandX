@@ -10,6 +10,7 @@ grammar CommandX;
 
 @parser::members {
 	Map<String, Object> symbolTable = new HashMap<String, Object>();
+	Map<String, Object> functionSymbolTable = new HashMap<String, Object>();
 }
 
 start: PROGRAM ID BRACES_OPEN
@@ -28,12 +29,15 @@ start: PROGRAM ID BRACES_OPEN
 sentence returns [ASTNode node]: 
 	  print {$node = $print.node;} 
 	| conditional {$node = $conditional.node;}
+	| incrementExpression {$node = $incrementExpression.node;}
 	| while_loop {$node = $while_loop.node;}
 	| var_decl {$node = $var_decl.node;}
 	| var_assign {$node = $var_assign.node;}
 	| read_statement {$node = $read_statement.node;}
 	| for_loop {$node = $for_loop.node;}
+	| for_loop_increment {$node = $for_loop_increment.node;}
 	| function_declaration {$node = $function_declaration.node;}
+	| function_declaration_with_return {$node = $function_declaration_with_return.node;}
 	| procedure_declaration {$node = $procedure_declaration.node;}
 	| function_call {$node = $function_call.node;}
 	| procedure_call {$node = $procedure_call.node;}
@@ -42,26 +46,40 @@ sentence returns [ASTNode node]:
 
 comment: LINE_COMMENT | BLOCK_COMMENT;
 
-print returns [ASTNode node]: PRINT logicalExpression SEMICOL
-	{$node = new Print($logicalExpression.node);};
+print returns [ASTNode node]: PRINT PAR_OPEN logicalExpression PAR_CLOSE SEMICOL
+	{$node = new Print($logicalExpression.node);}
+	| PRINT PAR_OPEN { System.out.println(); } PAR_CLOSE SEMICOL;
 
 read_statement returns [ASTNode node]: READ ID SEMICOL
 	{$node = new Read($ID.text);};
-
-conditional returns [ASTNode node]: IF PAR_OPEN logicalExpression PAR_CLOSE
-	{
-		List<ASTNode> body = new ArrayList<ASTNode>();
-	}
-	BRACES_OPEN (s1 = sentence {body.add($s1.node);})* BRACES_CLOSE
-	ELSE
-	{
-		List<ASTNode> elseBody = new ArrayList<ASTNode>();
-	}
-	BRACES_OPEN (s2 = sentence {elseBody.add($s2.node);})* BRACES_CLOSE
-	{
-		$node = new If($logicalExpression.node, body, elseBody);
-	};
-
+	
+conditional returns [ASTNode node]:
+    IF PAR_OPEN ifLogicalExpression=logicalExpression PAR_CLOSE
+    {
+        List<ASTNode> ifBody = new ArrayList<ASTNode>();
+        List<ASTNode> elseBody = new ArrayList<ASTNode>();
+        List<ElifNode> elifNodes = new ArrayList<ElifNode>();
+    }
+    BRACES_OPEN
+        (s1 = sentence {ifBody.add($s1.node);})*
+    BRACES_CLOSE
+(
+        (ELIF PAR_OPEN elifLogicalExpression=logicalExpression PAR_CLOSE
+            { List<ASTNode> elifBody = new ArrayList<ASTNode>(); }
+            BRACES_OPEN
+                (s2 = sentence {elifBody.add($s2.node);})*
+            BRACES_CLOSE
+            { ElifNode elifNode = new ElifNode($elifLogicalExpression.node, elifBody); elifNodes.add(elifNode); }
+        )+
+    )?
+    (
+        ELSE BRACES_OPEN
+            (s3 = sentence {elseBody.add($s3.node);})* 
+        BRACES_CLOSE
+    )?
+    {
+        $node = new If($ifLogicalExpression.node, ifBody, elifNodes, elseBody);
+    };
 while_loop returns [ASTNode node]: WHILE PAR_OPEN logicalExpression PAR_CLOSE
 	{
 		List<ASTNode> body = new ArrayList<ASTNode>();
@@ -76,13 +94,26 @@ for_loop returns [ASTNode node]:
     logicalExpression SEMICOL
     update=var_assign PAR_CLOSE
     {
-		List<ASTNode> body = new ArrayList<ASTNode>();
-	}
+        List<ASTNode> body = new ArrayList<ASTNode>();
+    }
+    BRACES_OPEN (s = sentence {body.add($s.node);})* BRACES_CLOSE
+    {
+        $node = new For_loop($initialization.node, $logicalExpression.node, $update.node, body);
+    };
+    
+for_loop_increment returns [ASTNode node]:
+    FOR PAR_OPEN initialization=var_assign
+    logicalExpression SEMICOL
+    update=incrementExpression PAR_CLOSE
+    {
+        List<ASTNode> body = new ArrayList<ASTNode>();
+    }
     BRACES_OPEN (s = sentence {body.add($s.node);})* BRACES_CLOSE
     {
         $node = new For_loop($initialization.node, $logicalExpression.node, $update.node, body);
     };
 
+    
 logicalExpression returns [ASTNode node]:
 	  logicalOrExpression {$node = $logicalOrExpression.node;}
 	| logicalAndExpression {$node = $logicalAndExpression.node;}
@@ -118,6 +149,11 @@ multiplicativeExpression returns [ASTNode node]:
     unaryExpression {$node = $unaryExpression.node;}
     (MULTIPLICATIVE_OPERATOR right=unaryExpression {$node = new MultiplicativeExpression($node, $right.node, $MULTIPLICATIVE_OPERATOR.text);})*
     ;
+    
+incrementExpression returns [ASTNode node]: 
+    ID op=INCREMENT_OPERATOR (SEMICOL)?  
+    {$node = new IncrementExpression($ID.text, $op.text);}
+    ;
   
 unaryExpression returns [ASTNode node]: 
     ADDITIVE_OPERATOR operand=unaryExpression {$node = new UnaryExpression($ADDITIVE_OPERATOR.text, $operand.node);}
@@ -141,18 +177,107 @@ logicalNotExpression returns [ASTNode node]:
 
 
 var_decl returns [ASTNode node]: typeDeclaration ID SEMICOL {$node = new VarDecl($ID.text, $typeDeclaration.text);}
-							   | typeDeclaration ID SEMICOL {$node = new VarDecl($ID.text, $typeDeclaration.text);} ;
+							   | typeDeclaration ID  ASSIGN logicalExpression SEMICOL {$node = new VarAssignDecl($ID.text, $typeDeclaration.text, $logicalExpression.node);} ;
 
 var_assign returns [ASTNode node]: ID ASSIGN logicalExpression SEMICOL {$node = new VarAssign($ID.text, $logicalExpression.node);}
 			| ID ASSIGN logicalExpression {$node = new VarAssign($ID.text, $logicalExpression.node);};
 
-function_declaration returns [ASTNode node]: FUNC ID PAR_OPEN parameterList PAR_CLOSE BRACES_OPEN
-		{
-			List<ASTNode> body = new ArrayList<ASTNode>();
-			Map<String, Object> localSymbolTable = new HashMap<String, Object>();
-		}
-		(s = sentence {body.add($s.node);})* BRACES_CLOSE
-		{$node = new FunctionDeclaration($ID.text, body, localSymbolTable);};
+function_declaration returns [ASTNode node]:
+    // Função com parâmetros porém sem retorno
+    FUNC ID PAR_OPEN parameterList PAR_CLOSE
+    BRACES_OPEN 
+    {
+        List<ASTNode> body = new ArrayList<>();
+        Map<String, Object> localSymbolTable = new HashMap<>();
+        List<Parameter> parameterList = $parameterList.list;
+    }
+    (s = sentence { body.add($s.node); })*
+    {$node = new FunctionDeclaration($ID.text, body, localSymbolTable, parameterList);}
+    BRACES_CLOSE
+    {
+        functionSymbolTable.put($ID.text, new FunctionDeclaration($ID.text, body, localSymbolTable, null));
+    }
+    |
+    // Função sem parâmetros e sem retorno
+    FUNC ID PAR_OPEN PAR_CLOSE
+    BRACES_OPEN 
+    {
+        List<ASTNode> body = new ArrayList<>();
+        Map<String, Object> localSymbolTable = new HashMap<>();
+    }
+    (s = sentence { body.add($s.node); })*
+    {$node = new FunctionDeclaration($ID.text, body, localSymbolTable, null);}
+    BRACES_CLOSE
+    {
+        functionSymbolTable.put($ID.text, new FunctionDeclaration($ID.text, body, localSymbolTable, null));
+    }
+;
+
+function_declaration_with_return returns [ASTNode node]:
+    FUNC typeDeclaration ID PAR_OPEN parameterList PAR_CLOSE 
+     BRACES_OPEN
+    {
+        List<ASTNode> body = new ArrayList<ASTNode>();
+        Map<String, Object> localSymbolTable = new HashMap<String, Object>();
+        List<Parameter> parameterList = $parameterList.list;
+        ASTNode returnFunc = null;
+    }
+    (s = sentence {body.add($s.node);})*
+    (r = returnFunc {returnFunc = $r.node;} )
+    {$node = new FunctionDeclarationReturn($ID.text, body, localSymbolTable, parameterList, $typeDeclaration.text, returnFunc);}
+    BRACES_CLOSE
+    {
+        functionSymbolTable.put($ID.text, new FunctionDeclarationReturn($ID.text, body, localSymbolTable, parameterList, $typeDeclaration.text, returnFunc));
+    }
+    |
+    FUNC typeDeclaration ID PAR_OPEN PAR_CLOSE
+    BRACES_OPEN
+    {
+        List<ASTNode> body = new ArrayList<>();
+        Map<String, Object> localSymbolTable = new HashMap<>();
+        ASTNode returnFunc = null;
+    }
+    (s = sentence { body.add($s.node); })*
+    (r = returnFunc { returnFunc = $r.node; } )?
+    {$node = new FunctionDeclarationReturn($ID.text, body, localSymbolTable, null, $typeDeclaration.text, returnFunc);}
+    BRACES_CLOSE
+    {
+        functionSymbolTable.put($ID.text, new FunctionDeclarationReturn($ID.text, body, localSymbolTable, null, $typeDeclaration.text, returnFunc));
+    }
+    ;
+
+returnFunc returns [ASTNode node]:
+    RETURN expr=logicalExpression SEMICOL
+    {
+        $node = new ReturnFunc($expr.node);
+    }
+    ;
+
+function_call returns [ASTNode node]:
+    ID PAR_OPEN PAR_CLOSE SEMICOL
+    {
+        Object declaration = functionSymbolTable.get($ID.text);
+
+        if (declaration instanceof FunctionDeclarationReturn) {
+            $node = new FunctionCall($ID.text, null, true);
+        } else if (declaration instanceof FunctionDeclaration) {
+            // Se não houver um retorno, cria uma instância de FunctionCall
+            $node = new FunctionCall($ID.text, null, false);
+        }
+    }
+    |
+    ID PAR_OPEN argumentList PAR_CLOSE SEMICOL
+    {
+        Object declaration = functionSymbolTable.get($ID.text);
+
+        if (declaration instanceof FunctionDeclarationReturn) {
+            $node = new FunctionCall($ID.text, $argumentList.list, true);
+        } else if (declaration instanceof FunctionDeclaration) {
+            // Se não houver um retorno, cria uma instância de FunctionCall
+            $node = new FunctionCall($ID.text, $argumentList.list, false);
+        }
+    }
+    ;
 
 procedure_declaration returns [ASTNode node]: PROC ID PAR_OPEN parameterList PAR_CLOSE BRACES_OPEN
 		{
@@ -161,9 +286,6 @@ procedure_declaration returns [ASTNode node]: PROC ID PAR_OPEN parameterList PAR
 		}
 		(s = sentence {body.add($s.node);})* BRACES_CLOSE
 		{$node = new ProcedureDeclaration($ID.text, body, localSymbolTable);};
-
-function_call returns [ASTNode node]: ID PAR_OPEN argumentList PAR_CLOSE SEMICOL
-		{$node = new FunctionCall($ID.text, $argumentList.list);};
 
 procedure_call returns [ASTNode node]: ID PAR_OPEN argumentList PAR_CLOSE SEMICOL
 		{$node = new ProcedureCall($ID.text, $argumentList.list);};
@@ -180,17 +302,15 @@ parameterList returns [List<Parameter> list]:
 
 parameter returns [Parameter param]: 
 		typeDeclaration ID {$param = new Parameter($typeDeclaration.text, $ID.text);};
-
-typeDeclaration : INT | DOUBLE | FLOAT |CHAR | BOOLEAN | VAR | STRING;
+		
+typeDeclaration : INT | FLOAT |CHAR | BOOLEAN | VAR | STRING;
 
 INT : 'int';
-DOUBLE : 'double';
 FLOAT : 'float';
 CHAR : 'char';
 BOOLEAN : 'boolean';
 STRING : 'string';
 POINTER_INT : 'int*';
-POINTER_DOUBLE : 'double*';
 POINTER_FLOAT : 'float*';
 POINTER_CHAR : 'char*';
 POINTER_BOOLEAN : 'boolean*';
@@ -208,12 +328,15 @@ RETURN: 'return';
 
 IF: 'if';
 ELSE: 'else';
+ELIF: 'elif';
 FOR: 'for';
 WHILE: 'while';
 
 ADDITIVE_OPERATOR: '+' | '-';
 MULTIPLICATIVE_OPERATOR: '*' | '/';
 MOD: '%';
+
+INCREMENT_OPERATOR: '++' | '--';
 
 AND: '&&';
 OR: '||';
@@ -239,12 +362,11 @@ BRACKET_CLOSE: ']';
 SEMICOL: ';';
 COMMA: ',';
 
-INTEGER_LITERAL: [0-9]+;
+INTEGER_LITERAL: '-'? [0-9]+;
 BOOLEAN_LITERAL: 'true' | 'false';
 CHAR_LITERAL: '\'' ~["'\r\n] '\'';
 STRING_LITERAL: '"' ~["\r\n]* '"';
-FLOAT_LITERAL: [0-9]+ '.' [0-9]+ 'f';
-DOUBLE_LITERAL: [0-9]+ '.' [0-9]+;
+FLOAT_LITERAL: '-'? [0-9]+ '.' [0-9]+;
 
 ID: [a-zA-Z_][a-zA-Z_0-9]*;
 

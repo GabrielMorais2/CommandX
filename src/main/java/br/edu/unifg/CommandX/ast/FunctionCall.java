@@ -1,54 +1,132 @@
 package br.edu.unifg.CommandX.ast;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class FunctionCall implements ASTNode {
-    private String functionName;
-    private List<ASTNode> arguments;
+	private String functionName;
+	private List<ASTNode> argumentList;
+	private boolean hasReturnValue;
 
-    public FunctionCall(String functionName, List<ASTNode> arguments) {
-        this.functionName = functionName;
-        this.arguments = arguments;
-    }
+	public FunctionCall(String functionName, List<ASTNode> argumentList, boolean hasReturnValue) {
+		this.functionName = functionName;
+		this.argumentList = argumentList;
+		this.hasReturnValue = hasReturnValue;
+	}
 
-    @Override
-    public Object execute(Map<String, Object> symbolTable) {
-        // Obtém a função da tabela de símbolos global
-        FunctionDeclaration function = (FunctionDeclaration) symbolTable.get(functionName);
+	@Override
+	public Object execute(Map<String, Object> symbolTable) {
+		Object declaration = symbolTable.get(functionName);
+		if (declaration instanceof FunctionDeclaration) {
+			// Recupera a declaração da função da tabela de símbolos
+			FunctionDeclaration functionDeclaration = (FunctionDeclaration) symbolTable.get(functionName);
 
-        // Verifica se a função existe
-        if (function == null) {
-            throw new RuntimeException("Função '" + functionName + "' não declarada.");
-        }
+			// Verifica se a função está declarada
+			if (functionDeclaration == null) {
+				throw new RuntimeException("Função '" + functionName + "' não declarada.");
+			}
 
-        // Verifica se o número de argumentos coincide com o número de parâmetros
-        List<ASTNode> parameters = function.getBody();
-        if (arguments.size() != parameters.size()) {
-            throw new RuntimeException("Número incorreto de argumentos para a função '" + functionName + "'.");
-        }
+			// Cria um novo escopo local para a execução da função
+			Map<String, Object> localSymbolTable = functionDeclaration.getLocalSymbolTable();
 
-        // Cria um novo escopo local para a execução da função
-        Map<String, Object> localSymbolTable = new HashMap<>(function.getLocalSymbolTable());
+			// Verifica se o número de argumentos coincide com o número de parâmetros
+			if (argumentList != null && functionDeclaration.getParameterList().size() != argumentList.size()) {
+				throw new RuntimeException(
+						"Número inválido de argumentos na chamada da função '" + functionName + "'.");
+			}
 
-        // Associa os argumentos aos parâmetros no escopo local
-        for (int i = 0; i < parameters.size(); i++) {
-            ASTNode parameter = parameters.get(i);
-            Object argValue = arguments.get(i).execute(symbolTable);
-            if (parameter instanceof VarDecl) {
-                VarDecl varDecl = (VarDecl) parameter;
-                localSymbolTable.put(varDecl.getName(), argValue);
-            } else {
-                throw new RuntimeException("Parâmetro inválido na declaração da função '" + functionName + "'.");
-            }
-        }
+			// Atribui os argumentos aos parâmetros
+			if (argumentList != null) {
+				for (int i = 0; i < functionDeclaration.getParameterList().size(); i++) {
+					Parameter parameter = functionDeclaration.getParameterList().get(i);
+					ASTNode argument = argumentList.get(i);
+					if (!isTypeCompatible(parameter.getType(), argument.execute(symbolTable))) {
+						throw new RuntimeException(
+								"Tipos de dados incompatíveis passados como argumentos para a função '" + functionName
+										+ "'.");
+					}
 
-        // Executa o corpo da função no novo escopo local
-        for (ASTNode node : function.getBody()) {
-            node.execute(localSymbolTable);
-        }
+					localSymbolTable.put(parameter.getName(), argument.execute(symbolTable));
+				}
+			}
 
-        return localSymbolTable.get(FunctionDeclaration.RETURN_VARIABLE_NAME);
-    }
+			for (ASTNode node : functionDeclaration.getBody()) {
+				node.execute(localSymbolTable);
+			}
+
+		} else if (declaration instanceof FunctionDeclarationReturn) {
+			// Recupera a declaração da função da tabela de símbolos
+			FunctionDeclarationReturn functionDeclaration = (FunctionDeclarationReturn) symbolTable.get(functionName);
+
+			// Verifica se a função está declarada
+			if (functionDeclaration == null) {
+				throw new RuntimeException("Função '" + functionName + "' não declarada.");
+			}
+
+			// Cria um novo escopo local para a execução da função
+			Map<String, Object> localSymbolTable = functionDeclaration.getLocalSymbolTable();
+
+			// Verifica se o número de argumentos coincide com o número de parâmetros
+			if (argumentList != null && functionDeclaration.getParameterList().size() != argumentList.size()) {
+				throw new RuntimeException(
+						"Número inválido de argumentos na chamada da função '" + functionName + "'.");
+			}
+
+			// Atribui os argumentos aos parâmetros
+			if (argumentList != null) {
+				for (int i = 0; i < functionDeclaration.getParameterList().size(); i++) {
+					Parameter parameter = functionDeclaration.getParameterList().get(i);
+					ASTNode argument = argumentList.get(i);
+					
+					if (!isTypeCompatible(parameter.getType(), argument.execute(symbolTable))) {
+						throw new RuntimeException(
+								"Tipos de dados incompatíveis passados como argumentos para a função '" + functionName
+										+ "'.");
+					}
+
+					localSymbolTable.put(parameter.getName(), argument.execute(symbolTable));
+			}
+			}
+
+			// Executa o corpo da função
+			for (ASTNode node : functionDeclaration.getBody()) {
+				node.execute(localSymbolTable);
+			}
+
+			// Retorna o valor de retorno da função
+			Object returnValue = functionDeclaration.getReturnStatement().execute(localSymbolTable);
+			
+			if (!isTypeCompatible(functionDeclaration.getReturnType(), returnValue)) {
+	            throw new RuntimeException("Tipo de retorno incompatível para a função '" + functionName + "'.");
+	        }
+
+	        return returnValue;
+		}
+
+	return null;
+
+	}
+
+	private boolean isTypeCompatible(String declaredType, Object assignedValue) {
+		if (assignedValue instanceof Integer || assignedValue instanceof Float) {
+			return true;
+		} else if (assignedValue instanceof Boolean) {
+			return true;
+		} else if (assignedValue instanceof String) {
+			return true;
+		}
+		return false;
+	}
+
+	public String getFunctionName() {
+		return functionName;
+	}
+
+	public List<ASTNode> getArgumentList() {
+		return argumentList;
+	}
+
+	public boolean isHasReturnValue() {
+		return hasReturnValue;
+	}
 }

@@ -19,11 +19,34 @@ public class AdditiveExpression implements ASTNode {
 	    public Object execute(Map<String, Object> symbolTable) {
 	        Object leftValue = left.execute(symbolTable);
 	        Object rightValue = right.execute(symbolTable);
+	        
+	        // Verifique se a operação é uma concatenação de string
+	        if (operator.equals("+") && (leftValue instanceof String || rightValue instanceof String)) {
+	            String leftString = leftValue.toString();
+	            String rightString = rightValue.toString();
+
+	            // Substitua "\\n" por quebra de linha real
+	            leftString = leftString.replace("\\n", "\n");
+	            rightString = rightString.replace("\\n", "\n");
+
+	            // Substitua "\\t" por tabulação
+	            leftString = leftString.replace("\\t", "\t");
+	            rightString = rightString.replace("\\t", "\t");
+
+	            // Substitua "\\r" por recursivo
+	            leftString = leftString.replace("\\r", "\r");
+	            rightString = rightString.replace("\\r", "\r");
+
+	            // Substitua "\\\\" por uma barra invertida
+	            leftString = leftString.replace("\\\\", "\\");
+	            rightString = rightString.replace("\\\\", "\\");
+
+	            return leftString + rightString;
+	        }
 
 	        if (leftValue instanceof Integer && rightValue instanceof Integer) {
 	            int leftInt = (int) leftValue;
-	            int rightInt = (int) rightValue;
-	            //System.out.println("#:" + operator);
+	            int rightInt = (int) rightValue; 
 	            switch (operator) {
 	                case "+":
 	                    return leftInt + rightInt;

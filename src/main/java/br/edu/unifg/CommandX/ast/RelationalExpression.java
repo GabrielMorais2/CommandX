@@ -17,7 +17,7 @@ public class RelationalExpression implements ASTNode {
 
     @Override
     public Object execute(Map<String, Object> symbolTable) {
-        // Executa os operandos
+      
         Object leftResult = leftOperand.execute(symbolTable);
         Object rightResult = rightOperand.execute(symbolTable);
 
@@ -55,7 +55,12 @@ public class RelationalExpression implements ASTNode {
     // Método auxiliar para comparação genérica
     @SuppressWarnings("unchecked")
     private int compare(Object leftResult, Object rightResult) {
-        if (leftResult instanceof Comparable<?> && rightResult instanceof Comparable<?>) {
+        if (leftResult instanceof Number && rightResult instanceof Number) {
+            // Se ambos os valores são números, faça a comparação numérica
+            double leftValue = ((Number) leftResult).doubleValue();
+            double rightValue = ((Number) rightResult).doubleValue();
+            return Double.compare(leftValue, rightValue);
+        } else if (leftResult instanceof Comparable<?> && rightResult instanceof Comparable<?>) {
             // Se ambos os valores são comparáveis, use compareTo
             return ((Comparable<Object>) leftResult).compareTo(rightResult);
         } else {

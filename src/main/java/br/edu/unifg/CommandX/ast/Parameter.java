@@ -8,14 +8,13 @@ public class Parameter implements ASTNode {
     private String name;
 
     public Parameter(String type, String name) {
-        super();
-    	this.type = type;
+        this.type = type;
         this.name = name;
     }
 
     @Override
     public Object execute(Map<String, Object> symbolTable) {
-        // Parâmetros não precisam de execução específica neste exemplo
+        symbolTable.put(name, null);
         return null;
     }
 

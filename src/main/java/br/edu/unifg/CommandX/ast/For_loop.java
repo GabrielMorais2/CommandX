@@ -20,14 +20,14 @@ public class For_loop implements ASTNode{
 
 	    @Override
 	    public Object execute(Map<String, Object> symbolTable) {
-	        initialization.execute(symbolTable);
-
-	        while ((boolean) logicalExpression.execute(symbolTable)) {
-	            for (ASTNode node : forBody) {
+	     
+	        for (initialization.execute(symbolTable); (boolean) logicalExpression.execute(symbolTable); update.execute(symbolTable)) {
+	            for (ASTNode node : forBody) {     
 	                node.execute(symbolTable);
 	            }
-	            update.execute(symbolTable);
 	        }
 	        return null;
 	    }
+	    
+	    
 }

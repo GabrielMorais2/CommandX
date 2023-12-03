@@ -116,6 +116,36 @@ public interface CommandXListener extends ParseTreeListener {
 	 */
 	void exitTypeDeclaration(@NotNull CommandXParser.TypeDeclarationContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CommandXParser#incrementExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterIncrementExpression(@NotNull CommandXParser.IncrementExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#incrementExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitIncrementExpression(@NotNull CommandXParser.IncrementExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#for_loop_increment}.
+	 * @param ctx the parse tree
+	 */
+	void enterFor_loop_increment(@NotNull CommandXParser.For_loop_incrementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#for_loop_increment}.
+	 * @param ctx the parse tree
+	 */
+	void exitFor_loop_increment(@NotNull CommandXParser.For_loop_incrementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#function_declaration_with_return}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_declaration_with_return(@NotNull CommandXParser.Function_declaration_with_returnContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#function_declaration_with_return}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_declaration_with_return(@NotNull CommandXParser.Function_declaration_with_returnContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CommandXParser#argumentList}.
 	 * @param ctx the parse tree
 	 */
@@ -265,6 +295,16 @@ public interface CommandXListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitEqualityExpression(@NotNull CommandXParser.EqualityExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#returnFunc}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnFunc(@NotNull CommandXParser.ReturnFuncContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#returnFunc}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnFunc(@NotNull CommandXParser.ReturnFuncContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CommandXParser#parameterList}.
 	 * @param ctx the parse tree
