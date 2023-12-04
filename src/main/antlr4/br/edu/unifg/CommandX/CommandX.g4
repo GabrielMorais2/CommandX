@@ -1,91 +1,314 @@
 grammar CommandX;
 
-start : PROGRAM ID BRACES_OPEN statement* BRACES_CLOSE function* ;
+@parser::header{ 
+	import java.util.Map;
+	import java.util.HashMap;
+	import java.util.List;
+	import java.util.ArrayList;
+	import br.edu.unifg.CommandX.ast.*;
+}
 
-statement: declaration | assign_operator | print | for_loop | while_loop | decision | function | array | increment;
+@parser::members {
+	Map<String, Object> symbolTable = new HashMap<String, Object>();
+	Map<String, Object> functionSymbolTable = new HashMap<String, Object>();
+}
 
-relationalExpression: EQUALITY_OPERATOR | RELATIONAL_OPERATOR;
+start: PROGRAM ID BRACES_OPEN
+		{
+			List<ASTNode> body = new ArrayList<ASTNode>();
+			Map<String, Object> symbolTable = new HashMap<String, Object>();
+		}
+		(sentence {body.add($sentence.node);})*
+		BRACES_CLOSE
+		{
+			for(ASTNode n : body) {
+				n.execute(symbolTable);
+			}
+		};
 
-arithmeticExpression: ADDITIVE_OPERATOR | MULTIPLICATIVE_OPERATOR | MOD;
+sentence returns [ASTNode node]: 
+	  print {$node = $print.node;} 
+	| conditional {$node = $conditional.node;}
+	| incrementExpression {$node = $incrementExpression.node;}
+	| while_loop {$node = $while_loop.node;}
+	| var_decl {$node = $var_decl.node;}
+	| var_assign {$node = $var_assign.node;}
+	| read_statement {$node = $read_statement.node;}
+	| for_loop {$node = $for_loop.node;}
+	| for_loop_increment {$node = $for_loop_increment.node;}
+	| function_declaration {$node = $function_declaration.node;}
+	| function_declaration_with_return {$node = $function_declaration_with_return.node;}
+	| procedure_declaration {$node = $procedure_declaration.node;}
+	| function_call {$node = $function_call.node;}
+	| procedure_call {$node = $procedure_call.node;}
+	| comment
+	;
 
-booleanExpression: AND | OR | NOT;
+comment: LINE_COMMENT | BLOCK_COMMENT;
 
-integer_literal_or_id: INTEGER_LITERAL | ID;
+print returns [ASTNode node]: PRINT PAR_OPEN logicalExpression PAR_CLOSE SEMICOL
+	{$node = new Print($logicalExpression.node);}
+	| PRINT PAR_OPEN { System.out.println(); } PAR_CLOSE SEMICOL;
 
-string: STRING_LITERAL;
+read_statement returns [ASTNode node]: READ ID SEMICOL
+	{$node = new Read($ID.text);};
+	
+conditional returns [ASTNode node]:
+    IF PAR_OPEN ifLogicalExpression=logicalExpression PAR_CLOSE
+    {
+        List<ASTNode> ifBody = new ArrayList<ASTNode>();
+        List<ASTNode> elseBody = new ArrayList<ASTNode>();
+        List<ElifNode> elifNodes = new ArrayList<ElifNode>();
+    }
+    BRACES_OPEN
+        (s1 = sentence {ifBody.add($s1.node);})*
+    BRACES_CLOSE
+(
+        (ELIF PAR_OPEN elifLogicalExpression=logicalExpression PAR_CLOSE
+            { List<ASTNode> elifBody = new ArrayList<ASTNode>(); }
+            BRACES_OPEN
+                (s2 = sentence {elifBody.add($s2.node);})*
+            BRACES_CLOSE
+            { ElifNode elifNode = new ElifNode($elifLogicalExpression.node, elifBody); elifNodes.add(elifNode); }
+        )+
+    )?
+    (
+        ELSE BRACES_OPEN
+            (s3 = sentence {elseBody.add($s3.node);})* 
+        BRACES_CLOSE
+    )?
+    {
+        $node = new If($ifLogicalExpression.node, ifBody, elifNodes, elseBody);
+    };
+while_loop returns [ASTNode node]: WHILE PAR_OPEN logicalExpression PAR_CLOSE
+	{
+		List<ASTNode> body = new ArrayList<ASTNode>();
+	}
+	BRACES_OPEN (s1 = sentence {body.add($s1.node);})* BRACES_CLOSE
+	{
+		$node = new While_loop($logicalExpression.node, body);
+	};
 
-type_return: primary_variable;
-parameter: type_return ID;
-parameter_list: parameter (COMMA parameter)*;
+for_loop returns [ASTNode node]:
+    FOR PAR_OPEN initialization=var_assign
+    logicalExpression SEMICOL
+    update=var_assign PAR_CLOSE
+    {
+        List<ASTNode> body = new ArrayList<ASTNode>();
+    }
+    BRACES_OPEN (s = sentence {body.add($s.node);})* BRACES_CLOSE
+    {
+        $node = new For_loop($initialization.node, $logicalExpression.node, $update.node, body);
+    };
+    
+for_loop_increment returns [ASTNode node]:
+    FOR PAR_OPEN initialization=var_assign
+    logicalExpression SEMICOL
+    update=incrementExpression PAR_CLOSE
+    {
+        List<ASTNode> body = new ArrayList<ASTNode>();
+    }
+    BRACES_OPEN (s = sentence {body.add($s.node);})* BRACES_CLOSE
+    {
+        $node = new For_loop($initialization.node, $logicalExpression.node, $update.node, body);
+    };
 
-function: type_return ID PAR_OPEN parameter_list* PAR_CLOSE BRACES_OPEN statement* RETURN (ID | literal_values) SEMICOL BRACES_CLOSE
-          | VOID ID PAR_OPEN parameter_list? PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE;
+    
+logicalExpression returns [ASTNode node]:
+	  logicalOrExpression {$node = $logicalOrExpression.node;}
+	| logicalAndExpression {$node = $logicalAndExpression.node;}
+	| NOT logicalExpression {$node = new LogicalNot($logicalExpression.node);}
+	| function_call {$node = $function_call.node;}
+	;
 
-increment : ID PLUS_PLUS SEMICOL | ID MINUS_MINUS SEMICOL
-           | ID PLUS_PLUS | ID MINUS_MINUS;
+logicalOrExpression returns [ASTNode node]: 
+    logicalAndExpression {$node = $logicalAndExpression.node;}
+    (OR right=logicalAndExpression {$node = new LogicalOr($node, $right.node);})*
+    ;
 
-assign_arithmetic : ID ASSIGN ID  arithmeticExpression ID
-                    | ID ASSIGN ID  arithmeticExpression INTEGER_LITERAL;
+logicalAndExpression returns [ASTNode node]: 
+    equalityExpression {$node = $equalityExpression.node;}
+    (AND right=equalityExpression {$node = new LogicalAnd($node, $right.node);})*
+    ;
 
-assign_operator: ID ASSIGN INTEGER_LITERAL SEMICOL
-           | ID ASSIGN ID SEMICOL
-           | ID ASSIGN STRING_LITERAL SEMICOL;
+equalityExpression returns [ASTNode node]: 
+    relationalExpression {$node = $relationalExpression.node;}
+    (EQUALITY_OPERATOR right=relationalExpression {$node = new EqualityExpression($node, $right.node, $EQUALITY_OPERATOR.text);})*
+    ;
 
-conditional_expression:  ID relationalExpression ID (booleanExpression conditional_expression)*
-          | ID relationalExpression INTEGER_LITERAL (booleanExpression conditional_expression)*
-          | INTEGER_LITERAL relationalExpression INTEGER_LITERAL (booleanExpression conditional_expression)*
-          | INTEGER_LITERAL relationalExpression ID (booleanExpression conditional_expression)*;
+relationalExpression returns [ASTNode node]: 
+    additiveExpression {$node = $additiveExpression.node;}
+    (RELATIONAL_OPERATOR right=additiveExpression {$node = new RelationalExpression($node, $right.node, $RELATIONAL_OPERATOR.text);})*
+    ;
 
-pointer: POINTER_INT | POINTER_DOUBLE | POINTER_FLOAT | POINTER_CHAR
-        | POINTER_BOOLEAN | POINTER_STRING | POINTER_VAR;
+additiveExpression returns [ASTNode node]: 
+    multiplicativeExpression {$node = $multiplicativeExpression.node;}
+    (ADDITIVE_OPERATOR right=multiplicativeExpression {$node = new AdditiveExpression($node, $right.node, $ADDITIVE_OPERATOR.text);})*
+    ;
 
-declaration: primary_variable ID SEMICOL | pointer ID SEMICOL
-           | primary_variable assign_operator
-           | primary_variable assign_arithmetic SEMICOL;
+multiplicativeExpression returns [ASTNode node]: 
+    unaryExpression {$node = $unaryExpression.node;}
+    (MULTIPLICATIVE_OPERATOR right=unaryExpression {$node = new MultiplicativeExpression($node, $right.node, $MULTIPLICATIVE_OPERATOR.text);})*
+    ;
+    
+incrementExpression returns [ASTNode node]: 
+    ID op=INCREMENT_OPERATOR (SEMICOL)?  
+    {$node = new IncrementExpression($ID.text, $op.text);}
+    ;
+  
+unaryExpression returns [ASTNode node]: 
+    ADDITIVE_OPERATOR operand=unaryExpression {$node = new UnaryExpression($ADDITIVE_OPERATOR.text, $operand.node);}
+    | primaryExpression {$node = $primaryExpression.node;}
+    ;
+
+primaryExpression returns [ASTNode node]: 
+    logicalNotExpression {$node = $logicalNotExpression.node;}
+    | INTEGER_LITERAL {$node = new Constant(Integer.parseInt($INTEGER_LITERAL.text));}
+    | BOOLEAN_LITERAL {$node = new Constant(Boolean.parseBoolean($BOOLEAN_LITERAL.text));}
+    | CHAR_LITERAL {$node = new Constant($CHAR_LITERAL.text.charAt(1));}
+    | STRING_LITERAL {$node = new Constant($STRING_LITERAL.text.substring(1, $STRING_LITERAL.text.length() - 1));}
+    | FLOAT_LITERAL {$node = new Constant(Float.parseFloat($FLOAT_LITERAL.text));}
+    | ID {$node = new VarRef($ID.text);}
+    | PAR_OPEN expr=logicalExpression PAR_CLOSE {$node = $expr.node;}
+    ;
+
+logicalNotExpression returns [ASTNode node]: 
+    NOT operand=primaryExpression {$node = new LogicalNot($operand.node);}
+    ;
 
 
-for_loop: FOR PAR_OPEN primary_variable assign_operator conditional_expression SEMICOL
-            increment PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE
-          | FOR PAR_OPEN primary_variable assign_operator conditional_expression SEMICOL assign_arithmetic
-            PAR_CLOSE BRACES_OPEN statement BRACES_CLOSE
-          | FOR PAR_OPEN assign_operator conditional_expression SEMICOL assign_arithmetic
-            PAR_CLOSE BRACES_OPEN statement BRACES_CLOSE
-          | FOR PAR_OPEN primary_variable assign_operator conditional_expression SEMICOL
-             increment PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE;
+var_decl returns [ASTNode node]: typeDeclaration ID SEMICOL {$node = new VarDecl($ID.text, $typeDeclaration.text);}
+							   | typeDeclaration ID  ASSIGN logicalExpression SEMICOL {$node = new VarAssignDecl($ID.text, $typeDeclaration.text, $logicalExpression.node);}
+							   | typeDeclaration ID  ASSIGN function_call (SEMICOL)? {$node = new VarAssignDecl($ID.text, $typeDeclaration.text, $function_call.node);} ;
 
-while_loop: WHILE PAR_OPEN conditional_expression PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE;
+var_assign returns [ASTNode node]: ID ASSIGN logicalExpression SEMICOL {$node = new VarAssign($ID.text, $logicalExpression.node);}
+			| ID ASSIGN logicalExpression {$node = new VarAssign($ID.text, $logicalExpression.node);};
 
-if_statement: IF PAR_OPEN conditional_expression PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE;
+function_declaration returns [ASTNode node]:
+    FUNC ID PAR_OPEN parameterList PAR_CLOSE
+    BRACES_OPEN 
+    {
+        List<ASTNode> body = new ArrayList<>();
+        Map<String, Object> localSymbolTable = new HashMap<>();
+        List<Parameter> parameterList = $parameterList.list;
+    }
+    (s = sentence { body.add($s.node); })*
+    {$node = new FunctionDeclaration($ID.text, body, localSymbolTable, parameterList);}
+    BRACES_CLOSE
+    {
+        functionSymbolTable.put($ID.text, new FunctionDeclaration($ID.text, body, localSymbolTable, null));
+    }
+    |
+    FUNC ID PAR_OPEN PAR_CLOSE
+    BRACES_OPEN 
+    {
+        List<ASTNode> body = new ArrayList<>();
+        Map<String, Object> localSymbolTable = new HashMap<>();
+    }
+    (s = sentence { body.add($s.node); })*
+    {$node = new FunctionDeclaration($ID.text, body, localSymbolTable, null);}
+    BRACES_CLOSE
+    {
+        functionSymbolTable.put($ID.text, new FunctionDeclaration($ID.text, body, localSymbolTable, null));
+    }
+;
 
-else_if_statement: ELSE IF PAR_OPEN conditional_expression PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE;
+function_declaration_with_return returns [ASTNode node]:
+    FUNC typeDeclaration ID PAR_OPEN parameterList PAR_CLOSE 
+     BRACES_OPEN
+    {
+        List<ASTNode> body = new ArrayList<ASTNode>();
+        Map<String, Object> localSymbolTable = new HashMap<String, Object>();
+        List<Parameter> parameterList = $parameterList.list;
+        ASTNode returnFunc = null;
+    }
+    (s = sentence {body.add($s.node);})*
+    (r = returnFunc {returnFunc = $r.node;} )
+    {$node = new FunctionDeclarationReturn($ID.text, body, localSymbolTable, parameterList, $typeDeclaration.text, returnFunc);}
+    BRACES_CLOSE
+    {
+        functionSymbolTable.put($ID.text, new FunctionDeclarationReturn($ID.text, body, localSymbolTable, parameterList, $typeDeclaration.text, returnFunc));
+    }
+    |
+    FUNC typeDeclaration ID PAR_OPEN PAR_CLOSE
+    BRACES_OPEN
+    {
+        List<ASTNode> body = new ArrayList<>();
+        Map<String, Object> localSymbolTable = new HashMap<>();
+        ASTNode returnFunc = null;
+    }
+    (s = sentence { body.add($s.node); })*
+    (r = returnFunc { returnFunc = $r.node; } )?
+    {$node = new FunctionDeclarationReturn($ID.text, body, localSymbolTable, null, $typeDeclaration.text, returnFunc);}
+    BRACES_CLOSE
+    {
+        functionSymbolTable.put($ID.text, new FunctionDeclarationReturn($ID.text, body, localSymbolTable, null, $typeDeclaration.text, returnFunc));
+    }
+    ;
 
-if_else_structure: IF PAR_OPEN conditional_expression PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE
-                    ELSE BRACES_OPEN statement* BRACES_CLOSE
-                    | IF PAR_OPEN conditional_expression PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE
-                      else_if_statement* ELSE BRACES_OPEN statement* BRACES_CLOSE
-                    | IF PAR_OPEN conditional_expression PAR_CLOSE BRACES_OPEN statement* BRACES_CLOSE
-                        else_if_statement* ;
+returnFunc returns [ASTNode node]:
+    RETURN expr=logicalExpression SEMICOL
+    {
+        $node = new ReturnFunc($expr.node);
+    }
+    ;
 
-decision: if_statement | if_else_structure;
+function_call returns [ASTNode node]:
+    ID PAR_OPEN PAR_CLOSE SEMICOL
+    {
+        Object declaration = functionSymbolTable.get($ID.text);
 
-print: PRINT PAR_OPEN integer_literal_or_id PAR_CLOSE SEMICOL
-       | PRINT PAR_OPEN string PAR_CLOSE SEMICOL;
+        if (declaration instanceof FunctionDeclarationReturn) {
+            $node = new FunctionCall($ID.text, null, true);
+        } else if (declaration instanceof FunctionDeclaration) {
+            $node = new FunctionCall($ID.text, null, false);
+        }
+    }
+    |
+    ID PAR_OPEN argumentList PAR_CLOSE SEMICOL
+    {
+        Object declaration = functionSymbolTable.get($ID.text);
 
-array: primary_variable ID BRACKET_OPEN INTEGER_LITERAL BRACKET_CLOSE SEMICOL
-       | primary_variable ID BRACKET_OPEN INTEGER_LITERAL BRACKET_CLOSE BRACKET_OPEN INTEGER_LITERAL BRACKET_CLOSE SEMICOL;
+        if (declaration instanceof FunctionDeclarationReturn) {
+            $node = new FunctionCall($ID.text, $argumentList.list, true);
+        } else if (declaration instanceof FunctionDeclaration) {
+            $node = new FunctionCall($ID.text, $argumentList.list, false);
+        }
+    }
+    ;
 
-primary_variable : INT | DOUBLE | FLOAT |CHAR | BOOLEAN | VAR | STRING;
+procedure_declaration returns [ASTNode node]: PROC ID PAR_OPEN parameterList PAR_CLOSE BRACES_OPEN
+		{
+			List<ASTNode> body = new ArrayList<ASTNode>();
+			Map<String, Object> localSymbolTable = new HashMap<String, Object>();
+		}
+		(s = sentence {body.add($s.node);})* BRACES_CLOSE
+		{$node = new ProcedureDeclaration($ID.text, body, localSymbolTable);};
 
-literal_values: STRING_LITERAL | INTEGER_LITERAL | BOOLEAN_LITERAL | CHAR_LITERAL | FLOAT_LITERAL | DOUBLE_LITERAL;
+procedure_call returns [ASTNode node]: ID PAR_OPEN argumentList PAR_CLOSE SEMICOL
+		{$node = new ProcedureCall($ID.text, $argumentList.list);};
+
+argumentList returns [List<ASTNode> list]: 
+		{List<ASTNode> args = new ArrayList<ASTNode>();}
+		(e = logicalExpression {args.add($e.node);} (COMMA e = logicalExpression {args.add($e.node);})*)
+		{$list = args;};
+
+parameterList returns [List<Parameter> list]: 
+		{List<Parameter> params = new ArrayList<Parameter>();}
+		(p = parameter {params.add($p.param);} (COMMA p = parameter {params.add($p.param);})*)
+		{$list = params;};
+
+parameter returns [Parameter param]: 
+		typeDeclaration ID {$param = new Parameter($typeDeclaration.text, $ID.text);};
+		
+typeDeclaration : INT | FLOAT |CHAR | BOOLEAN | VAR | STRING;
 
 INT : 'int';
-DOUBLE : 'double';
 FLOAT : 'float';
 CHAR : 'char';
 BOOLEAN : 'boolean';
 STRING : 'string';
 POINTER_INT : 'int*';
-POINTER_DOUBLE : 'double*';
 POINTER_FLOAT : 'float*';
 POINTER_CHAR : 'char*';
 POINTER_BOOLEAN : 'boolean*';
@@ -94,6 +317,7 @@ POINTER_VAR : 'var*';
 
 PROGRAM: 'program';
 VAR: 'var';
+READ: 'read';
 PRINT: 'print';
 FUNC: 'func';
 PROC: 'proc';
@@ -102,6 +326,7 @@ RETURN: 'return';
 
 IF: 'if';
 ELSE: 'else';
+ELIF: 'elif';
 FOR: 'for';
 WHILE: 'while';
 
@@ -109,12 +334,11 @@ ADDITIVE_OPERATOR: '+' | '-';
 MULTIPLICATIVE_OPERATOR: '*' | '/';
 MOD: '%';
 
+INCREMENT_OPERATOR: '++' | '--';
+
 AND: '&&';
 OR: '||';
 NOT: '!';
-
-PLUS_PLUS: '++';
-MINUS_MINUS: '--';
 
 RELATIONAL_OPERATOR: '>' | '<' | '>=' | '<=';
 EQUALITY_OPERATOR: '==' | '!=';
@@ -133,12 +357,13 @@ BRACKET_CLOSE: ']';
 SEMICOL: ';';
 COMMA: ',';
 
-INTEGER_LITERAL: [0-9]+;
+INTEGER_LITERAL: '-'? [0-9]+;
 BOOLEAN_LITERAL: 'true' | 'false';
 CHAR_LITERAL: '\'' ~["'\r\n] '\'';
 STRING_LITERAL: '"' ~["\r\n]* '"';
-FLOAT_LITERAL: [0-9]+ '.' [0-9]+ 'f';
-DOUBLE_LITERAL: [0-9]+ '.' [0-9]+;
+FLOAT_LITERAL: '-'? [0-9]+ '.' [0-9]+;
+
+ARRAY: 'array';
 
 ID: [a-zA-Z_][a-zA-Z_0-9]*;
 
