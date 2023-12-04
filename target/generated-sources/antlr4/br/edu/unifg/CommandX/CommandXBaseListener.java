@@ -1,5 +1,12 @@
 // Generated from CommandX.g4 by ANTLR 4.4
 package br.edu.unifg.CommandX;
+ 
+	import java.util.Map;
+	import java.util.HashMap;
+	import java.util.List;
+	import java.util.ArrayList;
+	import br.edu.unifg.CommandX.ast.*;
+
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -17,37 +24,49 @@ public class CommandXBaseListener implements CommandXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssign_arithmetic(@NotNull CommandXParser.Assign_arithmeticContext ctx) { }
+	@Override public void enterLogicalNotExpression(@NotNull CommandXParser.LogicalNotExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssign_arithmetic(@NotNull CommandXParser.Assign_arithmeticContext ctx) { }
+	@Override public void exitLogicalNotExpression(@NotNull CommandXParser.LogicalNotExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterString(@NotNull CommandXParser.StringContext ctx) { }
+	@Override public void enterConditional(@NotNull CommandXParser.ConditionalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitString(@NotNull CommandXParser.StringContext ctx) { }
+	@Override public void exitConditional(@NotNull CommandXParser.ConditionalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRelationalExpression(@NotNull CommandXParser.RelationalExpressionContext ctx) { }
+	@Override public void enterAdditiveExpression(@NotNull CommandXParser.AdditiveExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRelationalExpression(@NotNull CommandXParser.RelationalExpressionContext ctx) { }
+	@Override public void exitAdditiveExpression(@NotNull CommandXParser.AdditiveExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction_call(@NotNull CommandXParser.Function_callContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction_call(@NotNull CommandXParser.Function_callContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -65,73 +84,85 @@ public class CommandXBaseListener implements CommandXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType_return(@NotNull CommandXParser.Type_returnContext ctx) { }
+	@Override public void enterRelationalExpression(@NotNull CommandXParser.RelationalExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitType_return(@NotNull CommandXParser.Type_returnContext ctx) { }
+	@Override public void exitRelationalExpression(@NotNull CommandXParser.RelationalExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIncrement(@NotNull CommandXParser.IncrementContext ctx) { }
+	@Override public void enterVar_assign(@NotNull CommandXParser.Var_assignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIncrement(@NotNull CommandXParser.IncrementContext ctx) { }
+	@Override public void exitVar_assign(@NotNull CommandXParser.Var_assignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArithmeticExpression(@NotNull CommandXParser.ArithmeticExpressionContext ctx) { }
+	@Override public void enterProcedure_declaration(@NotNull CommandXParser.Procedure_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArithmeticExpression(@NotNull CommandXParser.ArithmeticExpressionContext ctx) { }
+	@Override public void exitProcedure_declaration(@NotNull CommandXParser.Procedure_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConditional_expression(@NotNull CommandXParser.Conditional_expressionContext ctx) { }
+	@Override public void enterProcedure_call(@NotNull CommandXParser.Procedure_callContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConditional_expression(@NotNull CommandXParser.Conditional_expressionContext ctx) { }
+	@Override public void exitProcedure_call(@NotNull CommandXParser.Procedure_callContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArray(@NotNull CommandXParser.ArrayContext ctx) { }
+	@Override public void enterTypeDeclaration(@NotNull CommandXParser.TypeDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArray(@NotNull CommandXParser.ArrayContext ctx) { }
+	@Override public void exitTypeDeclaration(@NotNull CommandXParser.TypeDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrimary_variable(@NotNull CommandXParser.Primary_variableContext ctx) { }
+	@Override public void enterArgumentList(@NotNull CommandXParser.ArgumentListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrimary_variable(@NotNull CommandXParser.Primary_variableContext ctx) { }
+	@Override public void exitArgumentList(@NotNull CommandXParser.ArgumentListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRead_statement(@NotNull CommandXParser.Read_statementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRead_statement(@NotNull CommandXParser.Read_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -149,13 +180,13 @@ public class CommandXBaseListener implements CommandXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatement(@NotNull CommandXParser.StatementContext ctx) { }
+	@Override public void enterLogicalAndExpression(@NotNull CommandXParser.LogicalAndExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatement(@NotNull CommandXParser.StatementContext ctx) { }
+	@Override public void exitLogicalAndExpression(@NotNull CommandXParser.LogicalAndExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -173,61 +204,49 @@ public class CommandXBaseListener implements CommandXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunc_i(@NotNull CommandXParser.Func_iContext ctx) { }
+	@Override public void enterUnaryExpression(@NotNull CommandXParser.UnaryExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunc_i(@NotNull CommandXParser.Func_iContext ctx) { }
+	@Override public void exitUnaryExpression(@NotNull CommandXParser.UnaryExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterElse_if_statement(@NotNull CommandXParser.Else_if_statementContext ctx) { }
+	@Override public void enterFunction_declaration(@NotNull CommandXParser.Function_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElse_if_statement(@NotNull CommandXParser.Else_if_statementContext ctx) { }
+	@Override public void exitFunction_declaration(@NotNull CommandXParser.Function_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPointer(@NotNull CommandXParser.PointerContext ctx) { }
+	@Override public void enterSentence(@NotNull CommandXParser.SentenceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPointer(@NotNull CommandXParser.PointerContext ctx) { }
+	@Override public void exitSentence(@NotNull CommandXParser.SentenceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRead(@NotNull CommandXParser.ReadContext ctx) { }
+	@Override public void enterPrimaryExpression(@NotNull CommandXParser.PrimaryExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRead(@NotNull CommandXParser.ReadContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDecision(@NotNull CommandXParser.DecisionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDecision(@NotNull CommandXParser.DecisionContext ctx) { }
+	@Override public void exitPrimaryExpression(@NotNull CommandXParser.PrimaryExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -245,49 +264,37 @@ public class CommandXBaseListener implements CommandXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIf_else_structure(@NotNull CommandXParser.If_else_structureContext ctx) { }
+	@Override public void enterLogicalOrExpression(@NotNull CommandXParser.LogicalOrExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIf_else_structure(@NotNull CommandXParser.If_else_structureContext ctx) { }
+	@Override public void exitLogicalOrExpression(@NotNull CommandXParser.LogicalOrExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBooleanExpression(@NotNull CommandXParser.BooleanExpressionContext ctx) { }
+	@Override public void enterMultiplicativeExpression(@NotNull CommandXParser.MultiplicativeExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBooleanExpression(@NotNull CommandXParser.BooleanExpressionContext ctx) { }
+	@Override public void exitMultiplicativeExpression(@NotNull CommandXParser.MultiplicativeExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclaration(@NotNull CommandXParser.DeclarationContext ctx) { }
+	@Override public void enterLogicalExpression(@NotNull CommandXParser.LogicalExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclaration(@NotNull CommandXParser.DeclarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInteger_literal_or_id(@NotNull CommandXParser.Integer_literal_or_idContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInteger_literal_or_id(@NotNull CommandXParser.Integer_literal_or_idContext ctx) { }
+	@Override public void exitLogicalExpression(@NotNull CommandXParser.LogicalExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -305,49 +312,49 @@ public class CommandXBaseListener implements CommandXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunc(@NotNull CommandXParser.FuncContext ctx) { }
+	@Override public void enterEqualityExpression(@NotNull CommandXParser.EqualityExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunc(@NotNull CommandXParser.FuncContext ctx) { }
+	@Override public void exitEqualityExpression(@NotNull CommandXParser.EqualityExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIf_statement(@NotNull CommandXParser.If_statementContext ctx) { }
+	@Override public void enterParameterList(@NotNull CommandXParser.ParameterListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIf_statement(@NotNull CommandXParser.If_statementContext ctx) { }
+	@Override public void exitParameterList(@NotNull CommandXParser.ParameterListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssign_op(@NotNull CommandXParser.Assign_opContext ctx) { }
+	@Override public void enterComment(@NotNull CommandXParser.CommentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssign_op(@NotNull CommandXParser.Assign_opContext ctx) { }
+	@Override public void exitComment(@NotNull CommandXParser.CommentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParameter_list(@NotNull CommandXParser.Parameter_listContext ctx) { }
+	@Override public void enterVar_decl(@NotNull CommandXParser.Var_declContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParameter_list(@NotNull CommandXParser.Parameter_listContext ctx) { }
+	@Override public void exitVar_decl(@NotNull CommandXParser.Var_declContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
