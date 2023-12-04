@@ -1,6 +1,12 @@
-// Generated from CommandX.g4 by ANTLR 4.4
+// Generated from br\edu\u005Cunifg\CommandX\CommandX.g4 by ANTLR 4.5.1
 package br.edu.unifg.CommandX;
-import org.antlr.v4.runtime.misc.NotNull;
+ 
+	import java.util.Map;
+	import java.util.HashMap;
+	import java.util.List;
+	import java.util.ArrayList;
+	import br.edu.unifg.CommandX.ast.*;
+
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -9,283 +15,323 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface CommandXListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link CommandXParser#assign_arithmetic}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssign_arithmetic(@NotNull CommandXParser.Assign_arithmeticContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#assign_arithmetic}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssign_arithmetic(@NotNull CommandXParser.Assign_arithmeticContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#string}.
-	 * @param ctx the parse tree
-	 */
-	void enterString(@NotNull CommandXParser.StringContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#string}.
-	 * @param ctx the parse tree
-	 */
-	void exitString(@NotNull CommandXParser.StringContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#relationalExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterRelationalExpression(@NotNull CommandXParser.RelationalExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#relationalExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitRelationalExpression(@NotNull CommandXParser.RelationalExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#while_loop}.
-	 * @param ctx the parse tree
-	 */
-	void enterWhile_loop(@NotNull CommandXParser.While_loopContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#while_loop}.
-	 * @param ctx the parse tree
-	 */
-	void exitWhile_loop(@NotNull CommandXParser.While_loopContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#type_return}.
-	 * @param ctx the parse tree
-	 */
-	void enterType_return(@NotNull CommandXParser.Type_returnContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#type_return}.
-	 * @param ctx the parse tree
-	 */
-	void exitType_return(@NotNull CommandXParser.Type_returnContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#increment}.
-	 * @param ctx the parse tree
-	 */
-	void enterIncrement(@NotNull CommandXParser.IncrementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#increment}.
-	 * @param ctx the parse tree
-	 */
-	void exitIncrement(@NotNull CommandXParser.IncrementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#arithmeticExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterArithmeticExpression(@NotNull CommandXParser.ArithmeticExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#arithmeticExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitArithmeticExpression(@NotNull CommandXParser.ArithmeticExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#conditional_expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterConditional_expression(@NotNull CommandXParser.Conditional_expressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#conditional_expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitConditional_expression(@NotNull CommandXParser.Conditional_expressionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#array}.
-	 * @param ctx the parse tree
-	 */
-	void enterArray(@NotNull CommandXParser.ArrayContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#array}.
-	 * @param ctx the parse tree
-	 */
-	void exitArray(@NotNull CommandXParser.ArrayContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#primary_variable}.
-	 * @param ctx the parse tree
-	 */
-	void enterPrimary_variable(@NotNull CommandXParser.Primary_variableContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#primary_variable}.
-	 * @param ctx the parse tree
-	 */
-	void exitPrimary_variable(@NotNull CommandXParser.Primary_variableContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#parameter}.
-	 * @param ctx the parse tree
-	 */
-	void enterParameter(@NotNull CommandXParser.ParameterContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#parameter}.
-	 * @param ctx the parse tree
-	 */
-	void exitParameter(@NotNull CommandXParser.ParameterContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void enterStatement(@NotNull CommandXParser.StatementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void exitStatement(@NotNull CommandXParser.StatementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#for_loop}.
-	 * @param ctx the parse tree
-	 */
-	void enterFor_loop(@NotNull CommandXParser.For_loopContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#for_loop}.
-	 * @param ctx the parse tree
-	 */
-	void exitFor_loop(@NotNull CommandXParser.For_loopContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#func_i}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunc_i(@NotNull CommandXParser.Func_iContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#func_i}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunc_i(@NotNull CommandXParser.Func_iContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#else_if_statement}.
-	 * @param ctx the parse tree
-	 */
-	void enterElse_if_statement(@NotNull CommandXParser.Else_if_statementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#else_if_statement}.
-	 * @param ctx the parse tree
-	 */
-	void exitElse_if_statement(@NotNull CommandXParser.Else_if_statementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#pointer}.
-	 * @param ctx the parse tree
-	 */
-	void enterPointer(@NotNull CommandXParser.PointerContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#pointer}.
-	 * @param ctx the parse tree
-	 */
-	void exitPointer(@NotNull CommandXParser.PointerContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#read}.
-	 * @param ctx the parse tree
-	 */
-	void enterRead(@NotNull CommandXParser.ReadContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#read}.
-	 * @param ctx the parse tree
-	 */
-	void exitRead(@NotNull CommandXParser.ReadContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#decision}.
-	 * @param ctx the parse tree
-	 */
-	void enterDecision(@NotNull CommandXParser.DecisionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#decision}.
-	 * @param ctx the parse tree
-	 */
-	void exitDecision(@NotNull CommandXParser.DecisionContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CommandXParser#start}.
 	 * @param ctx the parse tree
 	 */
-	void enterStart(@NotNull CommandXParser.StartContext ctx);
+	void enterStart(CommandXParser.StartContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link CommandXParser#start}.
 	 * @param ctx the parse tree
 	 */
-	void exitStart(@NotNull CommandXParser.StartContext ctx);
+	void exitStart(CommandXParser.StartContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CommandXParser#if_else_structure}.
+	 * Enter a parse tree produced by {@link CommandXParser#sentence}.
 	 * @param ctx the parse tree
 	 */
-	void enterIf_else_structure(@NotNull CommandXParser.If_else_structureContext ctx);
+	void enterSentence(CommandXParser.SentenceContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CommandXParser#if_else_structure}.
+	 * Exit a parse tree produced by {@link CommandXParser#sentence}.
 	 * @param ctx the parse tree
 	 */
-	void exitIf_else_structure(@NotNull CommandXParser.If_else_structureContext ctx);
+	void exitSentence(CommandXParser.SentenceContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CommandXParser#booleanExpression}.
+	 * Enter a parse tree produced by {@link CommandXParser#comment}.
 	 * @param ctx the parse tree
 	 */
-	void enterBooleanExpression(@NotNull CommandXParser.BooleanExpressionContext ctx);
+	void enterComment(CommandXParser.CommentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CommandXParser#booleanExpression}.
+	 * Exit a parse tree produced by {@link CommandXParser#comment}.
 	 * @param ctx the parse tree
 	 */
-	void exitBooleanExpression(@NotNull CommandXParser.BooleanExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#declaration}.
-	 * @param ctx the parse tree
-	 */
-	void enterDeclaration(@NotNull CommandXParser.DeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#declaration}.
-	 * @param ctx the parse tree
-	 */
-	void exitDeclaration(@NotNull CommandXParser.DeclarationContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CommandXParser#integer_literal_or_id}.
-	 * @param ctx the parse tree
-	 */
-	void enterInteger_literal_or_id(@NotNull CommandXParser.Integer_literal_or_idContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CommandXParser#integer_literal_or_id}.
-	 * @param ctx the parse tree
-	 */
-	void exitInteger_literal_or_id(@NotNull CommandXParser.Integer_literal_or_idContext ctx);
+	void exitComment(CommandXParser.CommentContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CommandXParser#print}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrint(@NotNull CommandXParser.PrintContext ctx);
+	void enterPrint(CommandXParser.PrintContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link CommandXParser#print}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrint(@NotNull CommandXParser.PrintContext ctx);
+	void exitPrint(CommandXParser.PrintContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CommandXParser#func}.
+	 * Enter a parse tree produced by {@link CommandXParser#read_statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunc(@NotNull CommandXParser.FuncContext ctx);
+	void enterRead_statement(CommandXParser.Read_statementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CommandXParser#func}.
+	 * Exit a parse tree produced by {@link CommandXParser#read_statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunc(@NotNull CommandXParser.FuncContext ctx);
+	void exitRead_statement(CommandXParser.Read_statementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CommandXParser#if_statement}.
+	 * Enter a parse tree produced by {@link CommandXParser#conditional}.
 	 * @param ctx the parse tree
 	 */
-	void enterIf_statement(@NotNull CommandXParser.If_statementContext ctx);
+	void enterConditional(CommandXParser.ConditionalContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CommandXParser#if_statement}.
+	 * Exit a parse tree produced by {@link CommandXParser#conditional}.
 	 * @param ctx the parse tree
 	 */
-	void exitIf_statement(@NotNull CommandXParser.If_statementContext ctx);
+	void exitConditional(CommandXParser.ConditionalContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CommandXParser#assign_op}.
+	 * Enter a parse tree produced by {@link CommandXParser#while_loop}.
 	 * @param ctx the parse tree
 	 */
-	void enterAssign_op(@NotNull CommandXParser.Assign_opContext ctx);
+	void enterWhile_loop(CommandXParser.While_loopContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CommandXParser#assign_op}.
+	 * Exit a parse tree produced by {@link CommandXParser#while_loop}.
 	 * @param ctx the parse tree
 	 */
-	void exitAssign_op(@NotNull CommandXParser.Assign_opContext ctx);
+	void exitWhile_loop(CommandXParser.While_loopContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CommandXParser#parameter_list}.
+	 * Enter a parse tree produced by {@link CommandXParser#for_loop}.
 	 * @param ctx the parse tree
 	 */
-	void enterParameter_list(@NotNull CommandXParser.Parameter_listContext ctx);
+	void enterFor_loop(CommandXParser.For_loopContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CommandXParser#parameter_list}.
+	 * Exit a parse tree produced by {@link CommandXParser#for_loop}.
 	 * @param ctx the parse tree
 	 */
-	void exitParameter_list(@NotNull CommandXParser.Parameter_listContext ctx);
+	void exitFor_loop(CommandXParser.For_loopContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#for_loop_increment}.
+	 * @param ctx the parse tree
+	 */
+	void enterFor_loop_increment(CommandXParser.For_loop_incrementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#for_loop_increment}.
+	 * @param ctx the parse tree
+	 */
+	void exitFor_loop_increment(CommandXParser.For_loop_incrementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#logicalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogicalExpression(CommandXParser.LogicalExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#logicalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogicalExpression(CommandXParser.LogicalExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#logicalOrExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogicalOrExpression(CommandXParser.LogicalOrExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#logicalOrExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogicalOrExpression(CommandXParser.LogicalOrExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#logicalAndExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogicalAndExpression(CommandXParser.LogicalAndExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#logicalAndExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogicalAndExpression(CommandXParser.LogicalAndExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#equalityExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterEqualityExpression(CommandXParser.EqualityExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#equalityExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitEqualityExpression(CommandXParser.EqualityExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#relationalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelationalExpression(CommandXParser.RelationalExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#relationalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelationalExpression(CommandXParser.RelationalExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAdditiveExpression(CommandXParser.AdditiveExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAdditiveExpression(CommandXParser.AdditiveExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultiplicativeExpression(CommandXParser.MultiplicativeExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultiplicativeExpression(CommandXParser.MultiplicativeExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#incrementExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterIncrementExpression(CommandXParser.IncrementExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#incrementExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitIncrementExpression(CommandXParser.IncrementExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryExpression(CommandXParser.UnaryExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryExpression(CommandXParser.UnaryExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryExpression(CommandXParser.PrimaryExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryExpression(CommandXParser.PrimaryExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#logicalNotExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogicalNotExpression(CommandXParser.LogicalNotExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#logicalNotExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogicalNotExpression(CommandXParser.LogicalNotExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#var_decl}.
+	 * @param ctx the parse tree
+	 */
+	void enterVar_decl(CommandXParser.Var_declContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#var_decl}.
+	 * @param ctx the parse tree
+	 */
+	void exitVar_decl(CommandXParser.Var_declContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#var_assign}.
+	 * @param ctx the parse tree
+	 */
+	void enterVar_assign(CommandXParser.Var_assignContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#var_assign}.
+	 * @param ctx the parse tree
+	 */
+	void exitVar_assign(CommandXParser.Var_assignContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#function_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_declaration(CommandXParser.Function_declarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#function_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_declaration(CommandXParser.Function_declarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#function_declaration_with_return}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_declaration_with_return(CommandXParser.Function_declaration_with_returnContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#function_declaration_with_return}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_declaration_with_return(CommandXParser.Function_declaration_with_returnContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#returnFunc}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnFunc(CommandXParser.ReturnFuncContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#returnFunc}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnFunc(CommandXParser.ReturnFuncContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#function_call}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_call(CommandXParser.Function_callContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#function_call}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_call(CommandXParser.Function_callContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#procedure_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterProcedure_declaration(CommandXParser.Procedure_declarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#procedure_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitProcedure_declaration(CommandXParser.Procedure_declarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#procedure_call}.
+	 * @param ctx the parse tree
+	 */
+	void enterProcedure_call(CommandXParser.Procedure_callContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#procedure_call}.
+	 * @param ctx the parse tree
+	 */
+	void exitProcedure_call(CommandXParser.Procedure_callContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#argumentList}.
+	 * @param ctx the parse tree
+	 */
+	void enterArgumentList(CommandXParser.ArgumentListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#argumentList}.
+	 * @param ctx the parse tree
+	 */
+	void exitArgumentList(CommandXParser.ArgumentListContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#parameterList}.
+	 * @param ctx the parse tree
+	 */
+	void enterParameterList(CommandXParser.ParameterListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#parameterList}.
+	 * @param ctx the parse tree
+	 */
+	void exitParameterList(CommandXParser.ParameterListContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#parameter}.
+	 * @param ctx the parse tree
+	 */
+	void enterParameter(CommandXParser.ParameterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#parameter}.
+	 * @param ctx the parse tree
+	 */
+	void exitParameter(CommandXParser.ParameterContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#typeDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypeDeclaration(CommandXParser.TypeDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#typeDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypeDeclaration(CommandXParser.TypeDeclarationContext ctx);
 }
