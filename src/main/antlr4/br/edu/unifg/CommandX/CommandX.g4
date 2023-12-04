@@ -41,6 +41,8 @@ sentence returns [ASTNode node]:
 	| procedure_declaration {$node = $procedure_declaration.node;}
 	| function_call {$node = $function_call.node;}
 	| procedure_call {$node = $procedure_call.node;}
+	| pointer_decl {$node = $pointer_decl.node;}
+	| pointer_manipulation {$node = $pointer_manipulation.node;}
 	| comment
 	;
 
@@ -175,14 +177,39 @@ primaryExpression returns [ASTNode node]:
 logicalNotExpression returns [ASTNode node]: 
     NOT operand=primaryExpression {$node = new LogicalNot($operand.node);}
     ;
+pointer_var: 'int*' |'double*' | 'char*'| 'bool*' | 'string*';
+pointer_decl returns [ASTNode node]: POINTER pointer_var ID SEMICOL {
+	symbolTable.put($ID.text, $pointer_var.text);
+	$node = new VarDecl($ID.text, $pointer_var.text);
+};
 
+var_assign returns [ASTNode node]: ID ASSING logicalExpression SEMICOL {
+	String declaredType = (String) symbolTable.get($ID.text);
+	$node = new VarAssign($ID.text, $logicalExpression.node,declaredType);
+};
+
+pointer_assign returns [ASTNode node]: POINTER pointer=ID ASSING variable=ID SEMICOL {
+	String declaredTypePointer = (String) symbolTable.get($pointer.text);
+	String declaredTypeVar = (String) symbolTable.get($variable.text);
+	symbolTable.put($pointer.text, $variable.text);
+	$node = new PointerAssign($pointer.text, $variable.text,declaredTypePointer,declaredTypeVar);
+};
+
+
+value_pointer returns [ASTNode node]: INTEGER_LITERAL {$node = new Constant(Integer.parseInt($INTEGER_LITERAL.text));}
+    | BOOLEAN_LITERAL {$node = new Constant(Boolean.parseBoolean($BOOLEAN_LITERAL.text));}
+    | CHAR_LITERAL {$node = new Constant($CHAR_LITERAL.text.charAt(1));}
+    | STRING_LITERAL {$node = new Constant($STRING_LITERAL.text.substring(1, $STRING_LITERAL.text.length() - 1));}
+    | DOUBLE_LITERAL {$node = new Constant(Float.parseFloat($DOUBLE_LITERAL.text));};
+
+pointer_manipulation returns [ASTNode node]: POINTER ID ASSING value_pointer SEMICOL {
+	String pointerValue = (String) symbolTable.get($ID.text);
+	$node = new PointerManipulation($ID.text, $value_pointer.node,pointerValue);
+};
 
 var_decl returns [ASTNode node]: typeDeclaration ID SEMICOL {$node = new VarDecl($ID.text, $typeDeclaration.text);}
 							   | typeDeclaration ID  ASSIGN logicalExpression SEMICOL {$node = new VarAssignDecl($ID.text, $typeDeclaration.text, $logicalExpression.node);}
 							   | typeDeclaration ID  ASSIGN function_call (SEMICOL)? {$node = new VarAssignDecl($ID.text, $typeDeclaration.text, $function_call.node);} ;
-
-var_assign returns [ASTNode node]: ID ASSIGN logicalExpression SEMICOL {$node = new VarAssign($ID.text, $logicalExpression.node);}
-			| ID ASSIGN logicalExpression {$node = new VarAssign($ID.text, $logicalExpression.node);};
 
 function_declaration returns [ASTNode node]:
     FUNC ID PAR_OPEN parameterList PAR_CLOSE
@@ -308,12 +335,7 @@ FLOAT : 'float';
 CHAR : 'char';
 BOOLEAN : 'boolean';
 STRING : 'string';
-POINTER_INT : 'int*';
-POINTER_FLOAT : 'float*';
-POINTER_CHAR : 'char*';
-POINTER_BOOLEAN : 'boolean*';
-POINTER_STRING : 'string*';
-POINTER_VAR : 'var*';
+POINTER: 'pointer';
 
 PROGRAM: 'program';
 VAR: 'var';
@@ -343,7 +365,7 @@ NOT: '!';
 RELATIONAL_OPERATOR: '>' | '<' | '>=' | '<=';
 EQUALITY_OPERATOR: '==' | '!=';
 
-ASSIGN: '=';
+ASSING: '=';
 
 PAR_OPEN: '(';
 PAR_CLOSE: ')';
@@ -362,6 +384,7 @@ BOOLEAN_LITERAL: 'true' | 'false';
 CHAR_LITERAL: '\'' ~["'\r\n] '\'';
 STRING_LITERAL: '"' ~["\r\n]* '"';
 FLOAT_LITERAL: '-'? [0-9]+ '.' [0-9]+;
+DOUBLE_LITERAL: [0-9]+ '.' [0-9]+;
 
 ID: [a-zA-Z_][a-zA-Z_0-9]*;
 
