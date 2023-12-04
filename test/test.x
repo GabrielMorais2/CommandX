@@ -1,10 +1,10 @@
 program teste {
-		
-	func string teste (string name){
-		return "oi, " + name;
+	
+	int count = 1;
+	
+	while (count <= 50) {
+    	print("Contagem: " + count);
+    	count = count + 1;
 	}
 	
-	string x = teste("gabriel");
-	
-	print(x);
 }

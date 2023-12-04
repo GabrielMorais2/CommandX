@@ -363,6 +363,8 @@ CHAR_LITERAL: '\'' ~["'\r\n] '\'';
 STRING_LITERAL: '"' ~["\r\n]* '"';
 FLOAT_LITERAL: '-'? [0-9]+ '.' [0-9]+;
 
+ARRAY: 'array';
+
 ID: [a-zA-Z_][a-zA-Z_0-9]*;
 
 LINE_COMMENT: '//' ~[\r\n]* '\r'? '\n' -> skip;
