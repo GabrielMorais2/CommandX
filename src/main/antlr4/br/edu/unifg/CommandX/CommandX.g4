@@ -43,6 +43,9 @@ sentence returns [ASTNode node]:
 	| procedure_call {$node = $procedure_call.node;}
 	| pointer_decl {$node = $pointer_decl.node;}
 	| pointer_manipulation {$node = $pointer_manipulation.node;}
+	| array_assign {$node = $array_assign.node;}
+	| array_literal {$node = $array_literal.node;}
+	| array_decl {$node = $array_decl.node;}
 	| comment
 	;
 
@@ -115,12 +118,40 @@ for_loop_increment returns [ASTNode node]:
         $node = new For_loop($initialization.node, $logicalExpression.node, $update.node, body);
     };
 
+array_assign returns [ASTNode node]: ID BRACKET_OPEN index=logicalExpression BRACKET_CLOSE ASSING logicalExpression SEMICOL {
+    String declaredType = (String) symbolTable.get($ID.text);
+    $node = new ArrayAssign($ID.text, $index.node, $logicalExpression.node);
+};
+
+array_literal returns [ASTNode node]:
+    BRACKET_OPEN 
+    {
+        List<ASTNode> list = new ArrayList<ASTNode>();
+    }
+    (e = logicalExpression {list.add($e.node);} (COMMA e = logicalExpression {list.add($e.node);})* )? 
+    BRACKET_CLOSE 
+    {
+        $node = new ArrayLiteral(list);
+    };
+
+array_decl returns [ASTNode node]: typeDeclaration ID BRACKET_OPEN INTEGER_LITERAL BRACKET_CLOSE SEMICOL {
+
+    symbolTable.put($ID.text, $typeDeclaration.text + "[]");
+    $node = new ArrayDecl($ID.text, $typeDeclaration.text, Integer.parseInt($INTEGER_LITERAL.text));
+};
+
+arrayAccess returns [ASTNode node]:
+    ID BRACKET_OPEN index=logicalExpression BRACKET_CLOSE
+    {
+        $node = new ArrayAccess($ID.text, $index.node);
+    };
     
 logicalExpression returns [ASTNode node]:
 	  logicalOrExpression {$node = $logicalOrExpression.node;}
 	| logicalAndExpression {$node = $logicalAndExpression.node;}
 	| NOT logicalExpression {$node = new LogicalNot($logicalExpression.node);}
 	| function_call {$node = $function_call.node;}
+	| arrayAccess {$node = $arrayAccess.node;}
 	;
 
 logicalOrExpression returns [ASTNode node]: 

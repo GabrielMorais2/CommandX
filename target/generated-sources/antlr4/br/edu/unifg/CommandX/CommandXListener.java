@@ -105,6 +105,46 @@ public interface CommandXListener extends ParseTreeListener {
 	 */
 	void exitFor_loop_increment(CommandXParser.For_loop_incrementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CommandXParser#array_assign}.
+	 * @param ctx the parse tree
+	 */
+	void enterArray_assign(CommandXParser.Array_assignContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#array_assign}.
+	 * @param ctx the parse tree
+	 */
+	void exitArray_assign(CommandXParser.Array_assignContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#array_literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterArray_literal(CommandXParser.Array_literalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#array_literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitArray_literal(CommandXParser.Array_literalContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#array_decl}.
+	 * @param ctx the parse tree
+	 */
+	void enterArray_decl(CommandXParser.Array_declContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#array_decl}.
+	 * @param ctx the parse tree
+	 */
+	void exitArray_decl(CommandXParser.Array_declContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#arrayAccess}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayAccess(CommandXParser.ArrayAccessContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#arrayAccess}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayAccess(CommandXParser.ArrayAccessContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CommandXParser#logicalExpression}.
 	 * @param ctx the parse tree
 	 */

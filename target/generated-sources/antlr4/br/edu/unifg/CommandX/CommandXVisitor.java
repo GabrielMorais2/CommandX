@@ -72,6 +72,30 @@ public interface CommandXVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFor_loop_increment(CommandXParser.For_loop_incrementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link CommandXParser#array_assign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArray_assign(CommandXParser.Array_assignContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CommandXParser#array_literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArray_literal(CommandXParser.Array_literalContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CommandXParser#array_decl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArray_decl(CommandXParser.Array_declContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CommandXParser#arrayAccess}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayAccess(CommandXParser.ArrayAccessContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link CommandXParser#logicalExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
