@@ -24,12 +24,16 @@ start: PROGRAM ID BRACES_OPEN
 				n.execute(symbolTable);
 			}
 		};
+array_declaration returns [ASTNode node]: ARRAY type = typeDeclaration ID(BRACKET_OPEN ( size = INTEGER_LITERAL)BRACKET_CLOSE)SEMICOL{
+$node = new Array_declaration($type.text, $ID.text, $size);
+};
 
 sentence returns [ASTNode node]: 
 	  print {$node = $print.node;} 
 	| conditional {$node = $conditional.node;}
 	| while_loop {$node = $while_loop.node;}
 	| var_decl {$node = $var_decl.node;}
+	| array_declaration {$node = $array_declaration.node;}
 	| var_assign {$node = $var_assign.node;}
 	| read_statement {$node = $read_statement.node;}
 	| for_loop {$node = $for_loop.node;}
@@ -139,12 +143,9 @@ logicalNotExpression returns [ASTNode node]:
     NOT operand=primaryExpression {$node = new LogicalNot($operand.node);}
     ;
 
+var_decl returns [ASTNode node]: typeDeclaration ID SEMICOL {$node = new VarDecl($ID.text, $typeDeclaration.text);};
 
-var_decl returns [ASTNode node]: typeDeclaration ID SEMICOL {$node = new VarDecl($ID.text, $typeDeclaration.text);}
-							   | typeDeclaration ID SEMICOL {$node = new VarDecl($ID.text, $typeDeclaration.text);} ;
-
-var_assign returns [ASTNode node]: ID ASSIGN logicalExpression SEMICOL {$node = new VarAssign($ID.text, $logicalExpression.node);}
-			| ID ASSIGN logicalExpression {$node = new VarAssign($ID.text, $logicalExpression.node);};
+var_assign returns [ASTNode node]: ID ASSIGN logicalExpression SEMICOL{$node = new VarAssign($ID.text, $logicalExpression.node);};
 
 function_declaration returns [ASTNode node]: FUNC ID PAR_OPEN parameterList PAR_CLOSE BRACES_OPEN
 		{
@@ -251,3 +252,4 @@ ID: [a-zA-Z_][a-zA-Z_0-9]*;
 LINE_COMMENT: '//' ~[\r\n]* '\r'? '\n' -> skip;
 BLOCK_COMMENT: '/*' .*? '*/' -> skip;
 WS: [ \t\r\n]+ -> skip;
+ARRAY: 'array';
