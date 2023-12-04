@@ -215,15 +215,55 @@ public interface CommandXListener extends ParseTreeListener {
 	 */
 	void exitLogicalNotExpression(CommandXParser.LogicalNotExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CommandXParser#var_decl}.
+	 * Enter a parse tree produced by {@link CommandXParser#pointer_var}.
 	 * @param ctx the parse tree
 	 */
-	void enterVar_decl(CommandXParser.Var_declContext ctx);
+	void enterPointer_var(CommandXParser.Pointer_varContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CommandXParser#var_decl}.
+	 * Exit a parse tree produced by {@link CommandXParser#pointer_var}.
 	 * @param ctx the parse tree
 	 */
-	void exitVar_decl(CommandXParser.Var_declContext ctx);
+	void exitPointer_var(CommandXParser.Pointer_varContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#pointer_decl}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointer_decl(CommandXParser.Pointer_declContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#pointer_decl}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointer_decl(CommandXParser.Pointer_declContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#pointer_assign}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointer_assign(CommandXParser.Pointer_assignContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#pointer_assign}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointer_assign(CommandXParser.Pointer_assignContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#value_pointer}.
+	 * @param ctx the parse tree
+	 */
+	void enterValue_pointer(CommandXParser.Value_pointerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#value_pointer}.
+	 * @param ctx the parse tree
+	 */
+	void exitValue_pointer(CommandXParser.Value_pointerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#pointer_manipulation}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointer_manipulation(CommandXParser.Pointer_manipulationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#pointer_manipulation}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointer_manipulation(CommandXParser.Pointer_manipulationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CommandXParser#var_assign}.
 	 * @param ctx the parse tree
@@ -234,6 +274,16 @@ public interface CommandXListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVar_assign(CommandXParser.Var_assignContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandXParser#var_decl}.
+	 * @param ctx the parse tree
+	 */
+	void enterVar_decl(CommandXParser.Var_declContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandXParser#var_decl}.
+	 * @param ctx the parse tree
+	 */
+	void exitVar_decl(CommandXParser.Var_declContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CommandXParser#function_declaration}.
 	 * @param ctx the parse tree

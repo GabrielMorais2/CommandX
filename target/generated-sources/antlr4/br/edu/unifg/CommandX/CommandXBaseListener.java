@@ -263,13 +263,61 @@ public class CommandXBaseListener implements CommandXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar_decl(CommandXParser.Var_declContext ctx) { }
+	@Override public void enterPointer_var(CommandXParser.Pointer_varContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVar_decl(CommandXParser.Var_declContext ctx) { }
+	@Override public void exitPointer_var(CommandXParser.Pointer_varContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPointer_decl(CommandXParser.Pointer_declContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointer_decl(CommandXParser.Pointer_declContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPointer_assign(CommandXParser.Pointer_assignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointer_assign(CommandXParser.Pointer_assignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterValue_pointer(CommandXParser.Value_pointerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitValue_pointer(CommandXParser.Value_pointerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPointer_manipulation(CommandXParser.Pointer_manipulationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointer_manipulation(CommandXParser.Pointer_manipulationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -282,6 +330,18 @@ public class CommandXBaseListener implements CommandXListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVar_assign(CommandXParser.Var_assignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVar_decl(CommandXParser.Var_declContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVar_decl(CommandXParser.Var_declContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

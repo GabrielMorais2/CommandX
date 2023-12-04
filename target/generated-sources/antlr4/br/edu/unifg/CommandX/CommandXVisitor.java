@@ -138,17 +138,47 @@ public interface CommandXVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLogicalNotExpression(CommandXParser.LogicalNotExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CommandXParser#var_decl}.
+	 * Visit a parse tree produced by {@link CommandXParser#pointer_var}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVar_decl(CommandXParser.Var_declContext ctx);
+	T visitPointer_var(CommandXParser.Pointer_varContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CommandXParser#pointer_decl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointer_decl(CommandXParser.Pointer_declContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CommandXParser#pointer_assign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointer_assign(CommandXParser.Pointer_assignContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CommandXParser#value_pointer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValue_pointer(CommandXParser.Value_pointerContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CommandXParser#pointer_manipulation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointer_manipulation(CommandXParser.Pointer_manipulationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CommandXParser#var_assign}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitVar_assign(CommandXParser.Var_assignContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CommandXParser#var_decl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVar_decl(CommandXParser.Var_declContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CommandXParser#function_declaration}.
 	 * @param ctx the parse tree
